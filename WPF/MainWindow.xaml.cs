@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PGBD_Project.BU;
+using PGBD_Project.DB;
 
 namespace WPF
 {
@@ -23,6 +25,11 @@ namespace WPF
         public MainWindow()
         {
             InitializeComponent();
+            List<Tenant> tenants = UserService.GetTenants();
+            foreach (Tenant tenant in tenants)
+            {
+                Console.WriteLine(tenant.FirstName);
+            }
         }
     }
 }

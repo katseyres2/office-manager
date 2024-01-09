@@ -8,7 +8,7 @@ using PGBD_Project.DB;
 
 namespace PGBD_Project.BU
 {
-    internal class UserService
+    public class UserService
     {
         public static List<Owner> GetOwners()
         {

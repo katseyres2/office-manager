@@ -8,7 +8,7 @@ using PGBD_Project.DB;
 
 namespace PGBD_Project.BU
 {
-    internal class WorkspaceService
+    public class WorkspaceService
     {
         public static List<Office> GetOffices()
         {

@@ -8,7 +8,7 @@ using PGBD_Project.DB;
 
 namespace PGBD_Project.BU
 {
-    internal class RentService
+    public class RentService
     {
         public static List<Contract> GetContracts()
         {

@@ -21,9 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\BU\BU.csproj" />
   </ItemGroup>
 
 </Project>

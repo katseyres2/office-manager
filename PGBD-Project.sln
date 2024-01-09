@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PGBD-Project", "PGBD-Projec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "WPF\WPF.csproj", "{3FC2D342-0E5A-4B9A-9958-F08C3DBB7620}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BU", "BU\BU.csproj", "{F5DB482B-AC32-480A-8907-C0F64A679F23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3FC2D342-0E5A-4B9A-9958-F08C3DBB7620}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FC2D342-0E5A-4B9A-9958-F08C3DBB7620}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FC2D342-0E5A-4B9A-9958-F08C3DBB7620}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5DB482B-AC32-480A-8907-C0F64A679F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5DB482B-AC32-480A-8907-C0F64A679F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5DB482B-AC32-480A-8907-C0F64A679F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5DB482B-AC32-480A-8907-C0F64A679F23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
