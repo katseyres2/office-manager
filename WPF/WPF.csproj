@@ -11,4 +11,8 @@
     <ProjectReference Include="..\BU\BU.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
+
 </Project>

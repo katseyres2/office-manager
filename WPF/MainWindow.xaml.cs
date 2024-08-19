@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ using System.Windows.Shapes;
 using PGBD_Project.BU;
 using PGBD_Project.DB;
 
+using WPF.ViewModel;
+
 namespace WPF
 {
     /// <summary>
@@ -22,14 +25,22 @@ namespace WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public readonly OwnerViewModel OwnerViewModel;
+
         public MainWindow()
         {
             InitializeComponent();
-            List<Tenant> tenants = UserService.GetTenants();
-            foreach (Tenant tenant in tenants)
-            {
-                Console.WriteLine(tenant.FirstName);
-            }
+            OwnerViewModel = new();
+            DataContext = OwnerViewModel;
+        }
+
+        private void DataGridCell_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridCell cell = (DataGridCell)sender;
+            int row = DataGridRow.GetRowContainingElement(cell).GetIndex();
+            //int column = cell.Column.DisplayIndex;
+            Owner owner = (Owner)dataGridOwners.Items.GetItemAt(row);
+            OwnerViewModel.OpenOwnerDetailWindow(owner);
         }
     }
 }

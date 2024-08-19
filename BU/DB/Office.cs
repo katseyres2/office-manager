@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace PGBD_Project.DB;
 
-public partial class Office
+public partial class 
+    Office
 {
     public int OfficeId { get; set; }
 

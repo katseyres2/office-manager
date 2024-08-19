@@ -1,0 +1,45 @@
+﻿<Window x:Class="WPF.View.OwnerDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF.View"
+        mc:Ignorable="d"
+        Title="Owner Details" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Label FontSize="15" Grid.Row="0" Grid.Column="0">Label</Label>
+        <TextBox Name="ownerLabel" Text="{Binding Label, Mode=OneWay}" Grid.Row="0" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="1" Grid.Column="0">VAT</Label>
+        <TextBox Name="ownerVAT" Text="{Binding Tva, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
+        
+        <Label FontSize="15" Grid.Row="2">Active</Label>
+        <CheckBox Name="ownerActive" IsChecked="{Binding Active, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="3">Created At</Label>
+        <TextBox Name="ownerCreatedAt" Text="{Binding CreatedAt, Mode=OneWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True"/>
+
+        <Label FontSize="15" Grid.Row="4">Updated At</Label>
+        <TextBox Name="ownerUpdatedAt" Text="{Binding UpdatedAt, Mode=OneWay}" Grid.Row="4" Grid.Column="1" IsReadOnly="True"/>
+
+        <Button Content="Delete" Name="DeleteButton" Background="DarkRed" Foreground="WhiteSmoke" Click="DeleteButton_Click" Grid.Row="6" Grid.Column="0" MinWidth="60" Margin="10"/>
+        <Button Content="Cancel" Name="CancelButton" Click="CancelButton_Click" Grid.Row="6" Grid.Column="2" MinWidth="60" Margin="10"/>
+        <Button Content="Save" Name="SaveButton" Click="SaveButton_Click" Grid.Row="6" Grid.Column="3" MinWidth="60" Margin="10"/>
+    </Grid>
+</Window>
