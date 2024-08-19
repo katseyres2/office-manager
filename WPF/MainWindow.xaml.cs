@@ -42,5 +42,10 @@ namespace WPF
             Owner owner = (Owner)dataGridOwners.Items.GetItemAt(row);
             OwnerViewModel.OpenOwnerDetailWindow(owner);
         }
+
+        private void CreateOwner_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerViewModel.OpenOwnerCreationWindow();
+        }
     }
 }

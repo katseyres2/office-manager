@@ -8,21 +8,28 @@
     Title="Flexi Workspace" Height="450" Width="800">
     <TabControl>
         <TabItem Header="Owners">
-            <DataGrid Name="dataGridOwners" CanUserSortColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Owners}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding OwnerId}" IsReadOnly="True" Visibility="Visible" SortDirection="Ascending"/>
-                    <DataGridTextColumn Header="Label" Binding="{Binding Label}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="VAT" Binding="{Binding Tva}" IsReadOnly="True"/>
-                    <DataGridCheckBoxColumn Header="Active" Binding="{Binding Active}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="CreatedAt" Binding="{Binding CreatedAt}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="UpdatedAt" Binding="{Binding UpdatedAt}" IsReadOnly="True"/>
-                </DataGrid.Columns>
-                <DataGrid.CellStyle>
-                    <Style TargetType="DataGridCell">
-                        <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridCell_PreviewMouseDoubleClick"/>
-                    </Style>
-                </DataGrid.CellStyle>
-            </DataGrid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <DataGrid Margin="10" Grid.Row="0" Name="dataGridOwners" CanUserSortColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Owners}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding OwnerId}" IsReadOnly="True" Visibility="Visible" SortDirection="Ascending"/>
+                        <DataGridTextColumn Header="Label" Binding="{Binding Label}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="VAT" Binding="{Binding Tva}" IsReadOnly="True"/>
+                        <DataGridCheckBoxColumn Header="Active" Binding="{Binding Active}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="CreatedAt" Binding="{Binding CreatedAt}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="UpdatedAt" Binding="{Binding UpdatedAt}" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridCell_PreviewMouseDoubleClick"/>
+                        </Style>
+                    </DataGrid.CellStyle>
+                </DataGrid>
+                <Button Grid.Row="1" Width="60" Height="Auto" Margin="10" Content="Create" HorizontalAlignment="Right" Name="CreateOwner" Click="CreateOwner_Click"/>
+            </Grid>
         </TabItem>
     </TabControl>
 </Window>

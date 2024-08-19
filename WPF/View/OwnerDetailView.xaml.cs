@@ -36,21 +36,10 @@ namespace WPF.View
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            OwnerViewModel.Owners.Remove(CurrentOwner);
-
             CurrentOwner.Active = ownerActive.IsChecked ?? CurrentOwner.Active;
             CurrentOwner.Tva = ownerVAT.Text;
             CurrentOwner.Label = ownerLabel.Text;
             CurrentOwner.UpdatedAt = DateTime.Now;
-
-            for (int i = 0; i < OwnerViewModel.Owners.Count; i++)
-            {
-                Owner o = OwnerViewModel.Owners[i];
-                
-                if (o.OwnerId < CurrentOwner.OwnerId) continue;
-                OwnerViewModel.Owners.Insert(i, CurrentOwner);
-                break;
-            }
 
             OwnerViewModel.UpdateOwner(CurrentOwner);
             Close();

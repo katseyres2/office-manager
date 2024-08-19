@@ -10,6 +10,7 @@ using System.Windows;
 using PGBD_Project.BU;
 using PGBD_Project.DB;
 
+using WPF.Exception;
 using WPF.View;
 
 namespace WPF.ViewModel
@@ -36,12 +37,35 @@ namespace WPF.ViewModel
 
         public void UpdateOwner(Owner owner)
         {
+            Owners.Remove(owner);
+
+            for (int i = 0; i < Owners.Count; i++)
+            {
+                Owner o = Owners[i];
+
+                if (o.OwnerId < owner.OwnerId) continue;
+                Owners.Insert(i, owner);
+                break;
+            }
+
             UserService.UpdateOwner(owner);
         }
 
         public void DeleteOwner(Owner owner)
         {
             UserService.DeleteOwner(owner);
+        }
+
+        public void CreateOwner(string? label, string? tva, bool active)
+        {
+            UserService.AddOwner(label, tva, active);
+            Owners.Clear();
+            List<Owner> DBOwners = UserService.GetOwners();
+
+            foreach (Owner o in DBOwners)
+            {
+                Owners.Add(o);
+            }
         }
 
         private void OnPropertyRaised(string propertyName)
@@ -55,6 +79,14 @@ namespace WPF.ViewModel
             if (window.ShowDialog() == true)
             {
                 
+            }
+        }
+        public void OpenOwnerCreationWindow()
+        {
+            Window window = new OwnerCreationView(this);
+            if (window.ShowDialog() == true)
+            {
+
             }
         }
     }

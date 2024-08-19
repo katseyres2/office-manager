@@ -37,15 +37,15 @@ namespace PGBD_Project.BU
             return users;
         }
 
-        public static Owner CreateOwner(string? label, string tva, bool active)
+        private static Owner CreateOwner(string? label, string? tva, bool active)
         {
             Owner owner = new()
             {
                 Label = label,
                 Tva = tva,
                 Active = active,
-                CreatedAt = new DateTime(),
-                UpdatedAt = new DateTime()
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
             };
 
             return owner;
@@ -60,8 +60,8 @@ namespace PGBD_Project.BU
                 Phone = phone,
                 Email = email,
                 Active = active,
-                CreatedAt = new DateTime(),
-                UpdatedAt = new DateTime(),
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
             };
 
             return tenant;
@@ -76,17 +76,17 @@ namespace PGBD_Project.BU
                 PostCode = postCode,
                 City = city,
                 Country = country,
-                CreatedAt = new DateTime(),
-                UpdatedAt = new DateTime()
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
             };
 
             return address;
         }
 
-        public static void AddOwner(Owner owner)
+        public static void AddOwner(string? label, string? tva, bool active)
         {
             using FlexiWorkspaceContext db = new();
-            db.Owners.Add(owner);
+            db.Owners.Add(CreateOwner(label, tva, active));
             db.SaveChanges();
         }
 
