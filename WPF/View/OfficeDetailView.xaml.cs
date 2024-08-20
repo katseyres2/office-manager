@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using PGBD_Project.BU;
 using PGBD_Project.DB;
 
 using WPF.ViewModel;

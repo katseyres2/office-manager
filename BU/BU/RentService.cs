@@ -10,13 +10,23 @@ namespace PGBD_Project.BU
 {
     public class RentService
     {
-        public static List<Contract> GetContracts()
+        public static List<Contract> GetContracts(bool preventCyclingOffice=false, bool preventCyclingTenant=false)
         {
             using FlexiWorkspaceContext db = new();
 
             List<Contract> contracts = db.Contracts.ToList();
-            List<Tenant> tenants = UserService.GetTenants();
-            List<Office> offices = WorkspaceService.GetOffices();
+            List<Tenant> tenants = new();
+            List<Office> offices= new();
+
+            if (!preventCyclingOffice)
+            {
+                offices = WorkspaceService.GetOffices();
+            }
+
+            if (!preventCyclingTenant)
+            {
+                tenants = UserService.GetTenants();
+            }
 
             foreach (Contract contract in contracts)
             {

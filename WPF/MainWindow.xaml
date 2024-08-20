@@ -37,7 +37,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <DataGrid Margin="10" Grid.Row="0" Name="dataGridTenants" CanUserSortColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Tenants}">
+                <DataGrid Margin="10" Grid.Row="0" Name="dataGridTenants" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Tenants}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding TenantId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
                         <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName}" IsReadOnly="True"/>
@@ -68,9 +68,9 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <DataGrid Margin="10" Grid.Row="0" Name="dataGridOffices" CanUserSortColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Offices}">
+                <DataGrid Margin="10" Grid.Row="0" Name="dataGridOffices" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Offices}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding OfficeId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
+                        <DataGridTextColumn Header="Id" Binding="{Binding OfficeId}" IsReadOnly="True" Visibility="Visible" SortDirection="Ascending"/>
                         <DataGridTextColumn Header="Surface" Binding="{Binding Surface}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Rent" Binding="{Binding Rent}" IsReadOnly="True"/>
                         <DataGridCheckBoxColumn Header="Active" Binding="{Binding Active}" IsReadOnly="True"/>
