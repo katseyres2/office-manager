@@ -41,6 +41,7 @@ namespace WPF.ViewModel
 
         public void UpdateTenant(Tenant tenant)
         {
+            tenant.UpdatedAt = DateTime.Now;
             UserService.UpdateTenant(tenant);
             Tenants.Clear();
 

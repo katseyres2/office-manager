@@ -28,6 +28,7 @@ namespace WPF
     {
         public readonly OwnerViewModel OwnerViewModel;
         public readonly TenantViewModel TenantViewModel;
+        public readonly OfficeViewModel OfficeViewModel;
         private int currentTabIndex;
 
         public MainWindow()
@@ -36,6 +37,7 @@ namespace WPF
             
             OwnerViewModel = new();
             TenantViewModel = new();
+            OfficeViewModel = new();
 
             DataContext = OwnerViewModel;
         }
@@ -44,15 +46,21 @@ namespace WPF
         {
             DataGridCell cell = (DataGridCell)sender;
             int row = DataGridRow.GetRowContainingElement(cell).GetIndex();
-            
+
             if (tabControl.SelectedIndex == OwnerTab.TabIndex)
             {
                 Owner owner = (Owner)dataGridOwners.Items.GetItemAt(row);
                 OwnerViewModel.OpenOwnerDetailWindow(owner);
-            } else if (tabControl.SelectedIndex == TenantTab.TabIndex)
+            }
+            else if (tabControl.SelectedIndex == TenantTab.TabIndex)
             {
                 Tenant tenant = (Tenant)dataGridTenants.Items.GetItemAt(row);
                 TenantViewModel.OpenTenantDetailWindow(tenant);
+            }
+            else if (tabControl.SelectedIndex == OfficeTab.TabIndex)
+            {
+                Office office = (Office)dataGridOffices.Items.GetItemAt(row);
+                OfficeViewModel.OpenOfficeDetailWindow(office, OwnerViewModel);
             }
         }
 
@@ -75,10 +83,16 @@ namespace WPF
 
                 if (OwnerTab.IsSelected) DataContext = OwnerViewModel;
                 else if (TenantTab.IsSelected) DataContext = TenantViewModel;
+                else if (OfficeTab.IsSelected) DataContext = OfficeViewModel;
                 else throw new TabNotFoundException();
 
                 currentTabIndex = selectedIndex;
             }
+        }
+
+        private void CreateOffice_Click(object sender, RoutedEventArgs e)
+        {
+            OfficeViewModel.OpenOfficeCreationWindow(OwnerViewModel);
         }
     }
 }

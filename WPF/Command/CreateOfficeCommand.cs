@@ -22,11 +22,11 @@ namespace WPF.Command
 
         public void Execute(object? parameter)
         {
-            Debug.WriteLine("Create");
-            Office office = new Office();
-            office.Active = true;
-            office.Description = "Description";
-            WorkspaceService.AddOffice(office);
+            //Debug.WriteLine("Create");
+            //Office office = new Office();
+            //office.Active = true;
+            //office.Description = "Description";
+            //WorkspaceService.AddOffice(office);
         }
     }
 }

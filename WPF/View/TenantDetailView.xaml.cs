@@ -52,7 +52,6 @@ namespace WPF.View
             CurrentTenant.LastName = tenantLastName.Text;
             CurrentTenant.Email = tenantEmail.Text;
             CurrentTenant.Phone = tenantPhone.Text;
-            CurrentTenant.UpdatedAt = DateTime.Now;
             CurrentTenant.Active = tenantActive.IsChecked ?? CurrentTenant.Active;
 
             CurrentTenant.Address.Number = tenantAddressNumber.Text;

@@ -16,7 +16,15 @@ namespace PGBD_Project.BU
             return db.Owners.ToList();
         }
 
-        private static Predicate<Address> FindAddressById(int id)
+        public static Predicate<Owner> FindOwnerById(int id)
+        {
+            return delegate (Owner owner)
+            {
+                return owner.OwnerId == id;
+            };
+        }
+
+        public static Predicate<Address> FindAddressById(int id)
         {
             return delegate (Address address)
             {
@@ -85,7 +93,7 @@ namespace PGBD_Project.BU
             return tenant;
         }
 
-        private static Address CreateAddress(string number, string street, string postCode, string city, string country)
+        public static Address CreateAddress(string number, string street, string postCode, string city, string country)
         {
             Address address = new()
             {

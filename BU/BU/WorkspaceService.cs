@@ -13,31 +13,42 @@ namespace PGBD_Project.BU
         public static List<Office> GetOffices()
         {
             using FlexiWorkspaceContext db = new();
-            return db.Offices.ToList();
+            
+            List<Office> offices = db.Offices.ToList();
+            List<Address> addresses = UserService.GetAddresses();
+            List<Owner> owners = UserService.GetOwners();
+
+            foreach (Office o in offices)
+            {
+                o.Address = addresses.Find(UserService.FindAddressById(o.AddressId));
+                o.Owner = owners.Find(UserService.FindOwnerById(o.OwnerId));
+            }
+
+            return offices;
         }
 
-        public static Office CreateOffice(double? surface, string? description, double? rent, bool active, int? type, Owner owner, Address address)
+        private static Office CreateOffice(double? surface, string? description, double? rent, int? type, int idOwner, string addressNumber, string street, string postCode, string city, string country)
         {
-            Office office = new ()
+            Office office = new()
             {
                 Surface = surface,
                 Description = description,
                 Rent = rent,
-                Active = active,
+                Active = true,
                 Type = type,
-                Owner = owner,
+                OwnerId = idOwner,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
-                Address = address
+                Address = UserService.CreateAddress(addressNumber, street, postCode, city, country)
             };
 
             return office;
         }
 
-        public static void AddOffice(Office office)
+        public static void AddOffice(double? surface, string? description, double? rent, int? type, int ownerId, string addressNumber, string street, string postCode, string city, string country)
         {
             using FlexiWorkspaceContext db = new();
-            db.Offices.Add(office);
+            db.Offices.Add(CreateOffice(surface, description, rent, type, ownerId, addressNumber, street, postCode, city, country));
             db.SaveChanges();
         }
 
