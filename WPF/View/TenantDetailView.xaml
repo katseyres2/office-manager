@@ -1,0 +1,72 @@
+﻿<Window x:Class="WPF.View.TenantDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF.View"
+        mc:Ignorable="d"
+        Title="Tenant Details" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label FontSize="15" Grid.Row="0" Grid.Column="0">FirstName</Label>
+        <TextBox Name="tenantFirstName" Text="{Binding FirstName, Mode=OneWay}" Grid.Row="0" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="1" Grid.Column="0">LastName</Label>
+        <TextBox Name="tenantLastName" Text="{Binding LastName, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="2">Active</Label>
+        <CheckBox Name="tenantActive" IsChecked="{Binding Active, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="3">Created At</Label>
+        <TextBox Name="tenantCreatedAt" Text="{Binding CreatedAt, Mode=OneWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True"/>
+
+        <Label FontSize="15" Grid.Row="4">Updated At</Label>
+        <TextBox Name="tenantUpdatedAt" Text="{Binding UpdatedAt, Mode=OneWay}" Grid.Row="4" Grid.Column="1" IsReadOnly="True"/>
+
+        <Label FontSize="15" Grid.Row="5">Phone</Label>
+        <TextBox Name="tenantPhone" Text="{Binding Phone, Mode=OneWay}" Grid.Row="5" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="6">Email</Label>
+        <TextBox Name="tenantEmail" Text="{Binding Email, Mode=OneWay}" Grid.Row="6" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="7">House Number</Label>
+        <TextBox Name="tenantAddressNumber" Text="{Binding Address.Number, Mode=OneWay}" Grid.Row="7" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="8">Street</Label>
+        <TextBox Name="tenantStreet" Text="{Binding Address.Street, Mode=OneWay}" Grid.Row="8" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="9">PostCode</Label>
+        <TextBox Name="tenantPostCode" Text="{Binding Address.PostCode, Mode=OneWay}" Grid.Row="9" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="10">City</Label>
+        <TextBox Name="tenantCity" Text="{Binding Address.City, Mode=OneWay}" Grid.Row="10" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="11">Country</Label>
+        <TextBox Name="tenantCountry" Text="{Binding Address.Country, Mode=OneWay}" Grid.Row="11" Grid.Column="1"/>
+
+        <Button Content="Delete" Name="DeleteButton" Background="DarkRed" Foreground="WhiteSmoke" Click="DeleteButton_Click"  Grid.Row="20" Grid.Column="0" MinWidth="60" Margin="10"/>
+        <Button Content="Cancel" Name="CancelButton" Click="CancelButton_Click"  Grid.Row="20" Grid.Column="2" MinWidth="60" Margin="10"/>
+        <Button Content="Save" Name="SaveButton" Click="SaveButton_Click"  Grid.Row="20" Grid.Column="3" MinWidth="60" Margin="10"/>
+    </Grid>
+</Window>

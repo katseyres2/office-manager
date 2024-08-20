@@ -16,10 +16,27 @@ namespace PGBD_Project.BU
             return db.Owners.ToList();
         }
 
+        private static Predicate<Address> FindAddressById(int id)
+        {
+            return delegate (Address address)
+            {
+                return address.AddressId == id;
+            };
+        }
+
         public static List<Tenant> GetTenants()
         {
             using FlexiWorkspaceContext db = new();
-            return db.Tenants.ToList();
+
+            List<Address> addresses = GetAddresses();
+            List<Tenant> tenants = db.Tenants.ToList();
+
+            foreach (Tenant t in tenants)
+            {
+                t.Address = addresses.Find(FindAddressById(t.AddressId));
+            }
+
+            return tenants;
         }
 
         public static List<Address> GetAddresses()
@@ -51,7 +68,7 @@ namespace PGBD_Project.BU
             return owner;
         }
 
-        public static Tenant CreateTenant(string? firstname, string? lastname, bool active, string? phone, string? email)
+        private static Tenant CreateTenant(string? firstname, string? lastname, bool active, string? phone, string? email, string addressNumber, string street, string postCode, string city, string country)
         {
             Tenant tenant = new()
             {
@@ -62,12 +79,13 @@ namespace PGBD_Project.BU
                 Active = active,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
+                Address = CreateAddress(addressNumber, street, postCode, city, country)
             };
 
             return tenant;
         }
 
-        public static Address CreateAddress(string number, string street, string postCode, string city, string country)
+        private static Address CreateAddress(string number, string street, string postCode, string city, string country)
         {
             Address address = new()
             {
@@ -90,10 +108,10 @@ namespace PGBD_Project.BU
             db.SaveChanges();
         }
 
-        public static void AddTenant(Tenant tenant)
+        public static void AddTenant(string? firstname, string? lastname, bool active, string? phone, string? email, string addressNumber, string street, string postCode, string city, string country)
         {
             using FlexiWorkspaceContext db = new();
-            db.Tenants.Add(tenant);
+            db.Tenants.Add(CreateTenant(firstname, lastname, active, phone, email, addressNumber, street, postCode, city, country));
             db.SaveChanges();
         }
 
@@ -136,8 +154,8 @@ namespace PGBD_Project.BU
         public static void UpdateTenant(Tenant tenant)
         {
             using FlexiWorkspaceContext db = new();
-            db.Tenants.Update(tenant);
             tenant.UpdatedAt = DateTime.Now;
+            db.Tenants.Update(tenant);
             db.SaveChanges();
         }
 

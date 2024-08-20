@@ -22,12 +22,12 @@ namespace WPF.ViewModel
 
         public OwnerViewModel()
         {
-            _owners = new ObservableCollection<Owner>(UserService.GetOwners());
+            _owners = new(UserService.GetOwners());
         }
 
         public ObservableCollection<Owner> Owners
         {
-            get => _owners ??= new ObservableCollection<Owner>();
+            get => _owners ??= new(UserService.GetOwners());
             set
             {
                 _owners = value;

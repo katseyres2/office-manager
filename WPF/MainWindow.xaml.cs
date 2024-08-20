@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using PGBD_Project.BU;
 using PGBD_Project.DB;
 
+using WPF.Exception;
 using WPF.ViewModel;
 
 namespace WPF
@@ -26,11 +27,16 @@ namespace WPF
     public partial class MainWindow : Window
     {
         public readonly OwnerViewModel OwnerViewModel;
+        public readonly TenantViewModel TenantViewModel;
+        private int currentTabIndex;
 
         public MainWindow()
         {
             InitializeComponent();
+            
             OwnerViewModel = new();
+            TenantViewModel = new();
+
             DataContext = OwnerViewModel;
         }
 
@@ -38,14 +44,41 @@ namespace WPF
         {
             DataGridCell cell = (DataGridCell)sender;
             int row = DataGridRow.GetRowContainingElement(cell).GetIndex();
-            //int column = cell.Column.DisplayIndex;
-            Owner owner = (Owner)dataGridOwners.Items.GetItemAt(row);
-            OwnerViewModel.OpenOwnerDetailWindow(owner);
+            
+            if (tabControl.SelectedIndex == OwnerTab.TabIndex)
+            {
+                Owner owner = (Owner)dataGridOwners.Items.GetItemAt(row);
+                OwnerViewModel.OpenOwnerDetailWindow(owner);
+            } else if (tabControl.SelectedIndex == TenantTab.TabIndex)
+            {
+                Tenant tenant = (Tenant)dataGridTenants.Items.GetItemAt(row);
+                TenantViewModel.OpenTenantDetailWindow(tenant);
+            }
         }
 
         private void CreateOwner_Click(object sender, RoutedEventArgs e)
         {
             OwnerViewModel.OpenOwnerCreationWindow();
+        }
+
+        private void CreateTenant_Click(object sender, RoutedEventArgs e)
+        {
+            TenantViewModel.OpenTenantCreationWindow();
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl tabControl && tabControl.SelectedIndex != currentTabIndex)
+            {
+                int selectedIndex = tabControl.SelectedIndex;
+                List<TabItem> tabs = new() { OwnerTab, TenantTab };
+
+                if (OwnerTab.IsSelected) DataContext = OwnerViewModel;
+                else if (TenantTab.IsSelected) DataContext = TenantViewModel;
+                else throw new TabNotFoundException();
+
+                currentTabIndex = selectedIndex;
+            }
         }
     }
 }
