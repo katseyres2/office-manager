@@ -12,7 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using Microsoft.EntityFrameworkCore;
+
 using PGBD_Project.DB;
+
+using WPF.Helper;
 using WPF.ViewModel;
 
 namespace WPF.View
@@ -32,8 +36,14 @@ namespace WPF.View
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            OwnerViewModel.CreateOwner(ownerLabel.Text, ownerVAT.Text, ownerActive.IsChecked ?? true);
-            Close();
+            try
+            {
+                OwnerViewModel.CreateOwner(ownerLabel.Text, ownerVAT.Text);
+                Close();
+            } catch (DbUpdateException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

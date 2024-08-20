@@ -13,7 +13,15 @@ namespace PGBD_Project.BU
         public static List<Owner> GetOwners()
         {
             using FlexiWorkspaceContext db = new();
-            return db.Owners.ToList();
+            List<Office> offices = db.Offices.ToList();
+            List<Owner> owners = db.Owners.ToList();
+
+            foreach (Office office in offices)
+            {
+                office.Owner = owners.Find(FindOwnerById(office.OwnerId));
+            }
+
+            return owners;
         }
 
         public static Predicate<Owner> FindOwnerById(int id)

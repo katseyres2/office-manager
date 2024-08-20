@@ -69,9 +69,9 @@ namespace WPF.ViewModel
             }
         }
 
-        public void OpenOfficeDetailWindow(Office office, OwnerViewModel ownerViewModel)
+        public void OpenOfficeDetailWindow(Office office, OwnerViewModel ownerViewModel, ContractViewModel contractViewModel)
         {
-            Window window = new OfficeDetailView(office, this, ownerViewModel);
+            Window window = new OfficeDetailView(office, this, ownerViewModel, contractViewModel);
             if (window.ShowDialog() == true)
             {
 

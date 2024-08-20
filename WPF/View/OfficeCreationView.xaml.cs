@@ -53,20 +53,26 @@ namespace WPF.View
                 return;
             }
 
-            _officeViewModel.CreateOffice(
-                Double.Parse(officeSurface.Text),
-                officeDescription.Text,
-                Double.Parse(officeRent.Text),
-                Int32.Parse(officeType.Text),
-                _currentOwner,
-                officeAddressNumber.Text,
-                officeStreet.Text,
-                officePostCode.Text,
-                officeCity.Text,
-                officeCountry.Text
-             );
-
-            Close();
+            try
+            {
+                _officeViewModel.CreateOffice(
+                    Double.Parse(officeSurface.Text),
+                    officeDescription.Text,
+                    Double.Parse(officeRent.Text),
+                    Int32.Parse(officeType.Text),
+                    _currentOwner,
+                    officeAddressNumber.Text,
+                    officeStreet.Text,
+                    officePostCode.Text,
+                    officeCity.Text,
+                    officeCountry.Text
+                 );
+                Close();
+            } 
+            catch (FormatException ex) { MessageBox.Show(ex.Message); }
+            catch (ArgumentNullException ex) { MessageBox.Show(ex.Message); }
+            catch (OverflowException ex) { MessageBox.Show(ex.Message); }
+            
         }
 
         private void ComboBoxOwner_SelectionChanged(object sender, SelectionChangedEventArgs e)

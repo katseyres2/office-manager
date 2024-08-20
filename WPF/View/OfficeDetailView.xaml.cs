@@ -27,14 +27,16 @@ namespace WPF.View
         private readonly Office _currentOffice;
         private readonly OwnerViewModel _ownerViewModel;
         private readonly OfficeViewModel _officeViewModel;
+        private readonly ContractViewModel _contractViewModel;
         private Owner? _currentOwner;
 
-        public OfficeDetailView(Office office, OfficeViewModel officeViewModel, OwnerViewModel ownerViewModel)
+        public OfficeDetailView(Office office, OfficeViewModel officeViewModel, OwnerViewModel ownerViewModel, ContractViewModel contractViewModel)
         {
             InitializeComponent();
             _currentOffice = office;
             _officeViewModel = officeViewModel;
             _ownerViewModel = ownerViewModel;
+            _contractViewModel = contractViewModel;
 
             foreach (Owner o in _ownerViewModel.Owners)
             {
@@ -43,6 +45,16 @@ namespace WPF.View
                 if (_currentOffice.Owner != null && _currentOffice.Owner.OwnerId == o.OwnerId)
                 {
                     _currentOwner = o;
+                }
+            }
+
+            _currentOffice.Contracts.Clear();
+
+            foreach (Contract contract in _contractViewModel.Contracts)
+            {
+                if (contract.OfficeId == _currentOffice.OfficeId)
+                {
+                    _currentOffice.Contracts.Add(contract);
                 }
             }
 
@@ -64,21 +76,27 @@ namespace WPF.View
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            _currentOffice.Surface = Double.Parse(officeSurface.Text);
-            _currentOffice.Rent = Double.Parse(officeRent.Text);
-            _currentOffice.Active = officeActive.IsChecked ?? _currentOffice.Active;
-            _currentOffice.Type = Int32.Parse(officeType.Text);
-            
-            _currentOffice.Address.Number = officeAddressNumber.Text;
-            _currentOffice.Address.Street = officeStreet.Text;
-            _currentOffice.Address.PostCode = officePostCode.Text;
-            _currentOffice.Address.City = officeCity.Text;
-            _currentOffice.Address.Country = officeCountry.Text;
+            try
+            {
+                _currentOffice.Surface = Double.Parse(officeSurface.Text);
+                _currentOffice.Rent = Double.Parse(officeRent.Text);
+                _currentOffice.Active = officeActive.IsChecked ?? _currentOffice.Active;
+                _currentOffice.Type = Int32.Parse(officeType.Text);
 
-            _currentOffice.Owner = _currentOwner ?? _currentOffice.Owner;
+                _currentOffice.Address.Number = officeAddressNumber.Text;
+                _currentOffice.Address.Street = officeStreet.Text;
+                _currentOffice.Address.PostCode = officePostCode.Text;
+                _currentOffice.Address.City = officeCity.Text;
+                _currentOffice.Address.Country = officeCountry.Text;
 
-            _officeViewModel.UpdateOffice(_currentOffice);
-            Close();
+                _currentOffice.Owner = _currentOwner ?? _currentOffice.Owner;
+                
+                _officeViewModel.UpdateOffice(_currentOffice);
+                Close();
+            }
+            catch (FormatException ex) { MessageBox.Show(ex.Message); }
+            catch (ArgumentNullException ex) { MessageBox.Show(ex.Message); }
+            catch (OverflowException ex) { MessageBox.Show(ex.Message); }
         }
 
         private void ComboBoxOwner_SelectionChanged(object sender, SelectionChangedEventArgs e)

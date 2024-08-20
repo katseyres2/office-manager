@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using Microsoft.EntityFrameworkCore;
+
 using PGBD_Project.DB;
 
 using WPF.ViewModel;
@@ -41,8 +43,14 @@ namespace WPF.View
             CurrentOwner.Label = ownerLabel.Text;
             CurrentOwner.UpdatedAt = DateTime.Now;
 
-            OwnerViewModel.UpdateOwner(CurrentOwner);
-            Close();
+            try
+            {
+                OwnerViewModel.UpdateOwner(CurrentOwner);
+                Close();
+            } catch (DbUpdateException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

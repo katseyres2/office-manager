@@ -25,6 +25,11 @@ namespace WPF.ViewModel
             _owners = new(UserService.GetOwners());
         }
 
+        public void RefreshOwners()
+        {
+            Owners = new(UserService.GetOwners());
+        }
+
         public ObservableCollection<Owner> Owners
         {
             get => _owners ??= new(UserService.GetOwners());
@@ -56,9 +61,9 @@ namespace WPF.ViewModel
             UserService.DeleteOwner(owner);
         }
 
-        public void CreateOwner(string? label, string? tva, bool active)
+        public void CreateOwner(string? label, string? tva)
         {
-            UserService.AddOwner(label, tva, active);
+            UserService.AddOwner(label, tva, true);
             Owners.Clear();
             List<Owner> DBOwners = UserService.GetOwners();
 

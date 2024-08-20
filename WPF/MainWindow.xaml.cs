@@ -31,6 +31,7 @@ namespace WPF
         public readonly OfficeViewModel OfficeViewModel;
         private readonly ContractViewModel contractViewModel;
         private int currentTabIndex;
+        private static bool hideDeletedItems = false;
 
         public MainWindow()
         {
@@ -62,7 +63,7 @@ namespace WPF
             else if (tabControl.SelectedIndex == OfficeTab.TabIndex)
             {
                 Office office = (Office)dataGridOffices.Items.GetItemAt(row);
-                OfficeViewModel.OpenOfficeDetailWindow(office, OwnerViewModel);
+                OfficeViewModel.OpenOfficeDetailWindow(office, OwnerViewModel, contractViewModel);
             }
             else if (tabControl.SelectedIndex == ContractTab.TabIndex)
             {
@@ -110,9 +111,7 @@ namespace WPF
 
         private void SwitchDeletedItemDisplay_Click(object sender, RoutedEventArgs e)
         {
-            //_hideDeletedItems = !_hideDeletedItems;
+            //
         }
-
-
     }
 }

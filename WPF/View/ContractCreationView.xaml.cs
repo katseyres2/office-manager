@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 using PGBD_Project.DB;
 
+using WPF.Exception;
 using WPF.ViewModel;
 
 namespace WPF.View
@@ -60,8 +61,18 @@ namespace WPF.View
                 return;
             }
 
-            DateTime startDate = DateTime.Parse(contractStartDate.Text);
-            DateTime endDate = DateTime.Parse(contractEndDate.Text);
+            DateTime startDate;
+            DateTime endDate;
+
+            try
+            {
+                 startDate = DateTime.Parse(contractStartDate.Text);
+                 endDate = DateTime.Parse(contractEndDate.Text);
+            } catch (FormatException)
+            {
+                MessageBox.Show("Invalid start or end date format.");
+                return;
+            }
 
             if (startDate > endDate)
             {
@@ -69,8 +80,15 @@ namespace WPF.View
                 return;
             }
 
-            contractViewModel.CreateContract(startDate, endDate, currentOffice, currentTenant);
-            Close();
+            try
+            {
+                contractViewModel.CreateContract(startDate, endDate, currentOffice, currentTenant);
+                Close();
+            }
+            catch (ReservationOverrideException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void ComboBoxOffice_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using Microsoft.EntityFrameworkCore;
+
 using PGBD_Project.DB;
 
 using WPF.ViewModel;
@@ -48,20 +50,23 @@ namespace WPF.View
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentTenant.FirstName = tenantFirstName.Text;
-            CurrentTenant.LastName = tenantLastName.Text;
-            CurrentTenant.Email = tenantEmail.Text;
-            CurrentTenant.Phone = tenantPhone.Text;
-            CurrentTenant.Active = tenantActive.IsChecked ?? CurrentTenant.Active;
+            try
+            {
+                CurrentTenant.FirstName = tenantFirstName.Text;
+                CurrentTenant.LastName = tenantLastName.Text;
+                CurrentTenant.Email = tenantEmail.Text;
+                CurrentTenant.Phone = tenantPhone.Text;
+                CurrentTenant.Active = tenantActive.IsChecked ?? CurrentTenant.Active;
 
-            CurrentTenant.Address.Number = tenantAddressNumber.Text;
-            CurrentTenant.Address.Street = tenantStreet.Text;
-            CurrentTenant.Address.PostCode = tenantPostCode.Text;
-            CurrentTenant.Address.City = tenantCity.Text;
-            CurrentTenant.Address.Country = tenantCountry.Text;
+                CurrentTenant.Address.Number = tenantAddressNumber.Text;
+                CurrentTenant.Address.Street = tenantStreet.Text;
+                CurrentTenant.Address.PostCode = tenantPostCode.Text;
+                CurrentTenant.Address.City = tenantCity.Text;
+                CurrentTenant.Address.Country = tenantCountry.Text;
 
-            TenantViewModel.UpdateTenant(CurrentTenant);
-            Close();
+                TenantViewModel.UpdateTenant(CurrentTenant);
+                Close();
+            } catch (DbUpdateException ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

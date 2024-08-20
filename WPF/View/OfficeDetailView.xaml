@@ -36,23 +36,24 @@
             <Label FontSize="15" Grid.Row="0" Grid.Column="0">Surface</Label>
             <TextBox Name="officeSurface" Text="{Binding Surface, Mode=OneWay}" Grid.Row="0" Grid.Column="1"/>
         
-            <Label FontSize="15" Grid.Row="0" Grid.Column="2">Active</Label>
-            <CheckBox Name="officeActive" IsChecked="{Binding Active, Mode=OneWay}" Grid.Row="0" Grid.Column="3"/>
+            <Label FontSize="15" Grid.Row="0" Grid.Column="2" Visibility="Visible">Active</Label>
+            <CheckBox Name="officeActive" IsChecked="{Binding Active, Mode=OneWay}" Visibility="Visible" Grid.Row="0" Grid.Column="3"/>
 
             <Label FontSize="15" Grid.Row="1" Grid.Column="0">Description</Label>
             <TextBox Name="officeDescription" Grid.ColumnSpan="3" Text="{Binding Description, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
 
-            <Label FontSize="15" Grid.Row="2">Created At</Label>
-            <TextBox Name="officeCreatedAt" Text="{Binding CreatedAt, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True"/>
+            <Label Visibility="Collapsed" FontSize="15" Grid.Row="2">Created At</Label>
+            <TextBox Visibility="Collapsed" Name="officeCreatedAt" Text="{Binding CreatedAt, Mode=OneWay, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" Grid.Row="2" Grid.Column="1" IsReadOnly="True"/>
 
-            <Label FontSize="15" Grid.Row="2" Grid.Column="2">Updated At</Label>
-            <TextBox Name="officeUpdatedAt" Text="{Binding UpdatedAt, Mode=OneWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True"/>
+            <Label Visibility="Collapsed" FontSize="15" Grid.Row="2" Grid.Column="2">Updated At</Label>
+            <TextBox Visibility="Collapsed" Name="officeUpdatedAt" Text="{Binding UpdatedAt, Mode=OneWay, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" Grid.Row="2" Grid.Column="3" IsReadOnly="True"/>
 
             <Label FontSize="15" Grid.Row="3">Rent</Label>
             <TextBox Name="officeRent" Text="{Binding Rent, Mode=OneWay}" Grid.Row="3" Grid.Column="1"/>
+            
 
-            <Label FontSize="15" Grid.Row="3" Grid.Column="2">Type</Label>
-            <TextBox Name="officeType" Text="{Binding Type, Mode=OneWay}" Grid.Row="3" Grid.Column="3"/>
+            <Label FontSize="15" Grid.Row="3" Grid.Column="2" Visibility="Hidden">Type</Label>
+            <TextBox Name="officeType" Text="{Binding Type, Mode=OneWay}" Grid.Row="3" Visibility="Hidden" Grid.Column="3"/>
 
             <Label FontSize="15" Grid.Row="4">Address Number</Label>
             <TextBox Name="officeAddressNumber" Text="{Binding Address.Number, Mode=OneWay}" Grid.Row="4" Grid.Column="1"/>
@@ -73,11 +74,11 @@
             <ComboBox Name="ComboBoxOwner" DisplayMemberPath="Label" Grid.Row="6" Grid.Column="3" SelectionChanged="ComboBoxOwner_SelectionChanged"/>
         </Grid>
 
-        <DataGrid Grid.Row="1" Margin="10" Name="dataGridContracts" AutoGenerateColumns="False" ItemsSource="{Binding Contracts}">
+        <DataGrid IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Row="1" Margin="10" Name="dataGridContracts" AutoGenerateColumns="False" ItemsSource="{Binding Contracts}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Tenant" Binding="{Binding Tenant.FirstName}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="End date" Binding="{Binding EndDate}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="*" Header="Tenant" Binding="{Binding Tenant.FirstName}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="*" Header="Start date" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="*" Header="End date" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
 

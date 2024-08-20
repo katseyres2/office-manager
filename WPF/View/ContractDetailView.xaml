@@ -36,10 +36,10 @@
         <TextBox Name="contractId" Text="{Binding ContractId, Mode=OneWay}" Grid.Row="0" Grid.Column="1" Visibility="Collapsed"/>
 
         <Label FontSize="15" Grid.Row="1" Grid.Column="0">Start date</Label>
-        <DatePicker Name="contractStartDate" Grid.Row="1" Grid.Column="1" SelectedDate="{Binding EndDate}"/>
+        <DatePicker Name="contractStartDate" Grid.Row="1" Grid.Column="1" SelectedDate="{Binding StartDate}"/>
 
         <Label FontSize="15" Grid.Row="2">End date</Label>
-        <DatePicker Name="contractEndDate" Grid.Row="2" Grid.Column="1" SelectedDate="{Binding StartDate}"/>
+        <DatePicker Name="contractEndDate" Grid.Row="2" Grid.Column="1" SelectedDate="{Binding EndDate}"/>
 
         <Label FontSize="15" Grid.Row="3">Created At</Label>
         <TextBox Name="officeCreatedAt" Text="{Binding CreatedAt, Mode=OneWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True"/>

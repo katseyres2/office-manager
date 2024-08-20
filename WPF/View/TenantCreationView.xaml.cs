@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,20 +38,23 @@ namespace WPF.View
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            _tenantViewModel.CreateTenant(
-                tenantFirstName.Text,
-                tenantLastName.Text,
-                true,
-                tenantPhone.Text,
-                tenantEmail.Text,
-                tenantAddressNumber.Text,
-                tenantStreet.Text,
-                tenantPostCode.Text,
-                tenantCity.Text,
-                tenantCountry.Text
-            );
+            try
+            {
+                _tenantViewModel.CreateTenant(
+                    tenantFirstName.Text,
+                    tenantLastName.Text,
+                    true,
+                    tenantPhone.Text,
+                    tenantEmail.Text,
+                    tenantAddressNumber.Text,
+                    tenantStreet.Text,
+                    tenantPostCode.Text,
+                    tenantCity.Text,
+                    tenantCountry.Text
+                );
 
-            Close();
+                Close();
+            } catch (DbUpdateException ex) { MessageBox.Show( ex.Message ); }
         }
     }
 }
