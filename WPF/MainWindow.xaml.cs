@@ -98,11 +98,14 @@ namespace WPF
             TenantViewModel.OpenTenantCreationWindow();
         }
 
-       
-
         private void CreateOffice_Click(object sender, RoutedEventArgs e)
         {
             OfficeViewModel.OpenOfficeCreationWindow(OwnerViewModel);
+        }
+
+        private void CreateContract_Click(object sender, RoutedEventArgs e)
+        {
+            contractViewModel.OpenContractCreationWindow(OfficeViewModel, TenantViewModel);
         }
 
         private void SwitchDeletedItemDisplay_Click(object sender, RoutedEventArgs e)
@@ -110,9 +113,6 @@ namespace WPF
             //_hideDeletedItems = !_hideDeletedItems;
         }
 
-        private void CreateContract_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
     }
 }

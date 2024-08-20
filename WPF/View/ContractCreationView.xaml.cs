@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using PGBD_Project.DB;
+
+using WPF.ViewModel;
+
 namespace WPF.View
 {
     /// <summary>
@@ -19,9 +23,68 @@ namespace WPF.View
     /// </summary>
     public partial class ContractCreationView : Window
     {
-        public ContractCreationView()
+        private readonly ContractViewModel contractViewModel;
+        private readonly TenantViewModel tenantViewModel;
+        private readonly OfficeViewModel officeViewModel;
+        private Office? currentOffice;
+        private Tenant? currentTenant;
+
+        public ContractCreationView(OfficeViewModel officeViewModel, TenantViewModel tenantViewModel, ContractViewModel contractViewModel)
         {
             InitializeComponent();
+            this.contractViewModel = contractViewModel;
+            this.tenantViewModel = tenantViewModel;
+            this.officeViewModel = officeViewModel;
+
+            foreach (Tenant tenant in tenantViewModel.Tenants)
+            {
+                ComboBoxTenant.Items.Add(tenant);
+            }
+
+            foreach (Office office in officeViewModel.Offices)
+            {
+                ComboBoxOffice.Items.Add(office);
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTenant == null || currentOffice == null)
+            {
+                MessageBox.Show("Tenant and office must be not null.");
+                return;
+            }
+
+            DateTime startDate = DateTime.Parse(contractStartDate.Text);
+            DateTime endDate = DateTime.Parse(contractEndDate.Text);
+
+            if (startDate > endDate)
+            {
+                MessageBox.Show("End date must be older than start date.");
+                return;
+            }
+
+            contractViewModel.CreateContract(startDate, endDate, currentOffice, currentTenant);
+            Close();
+        }
+
+        private void ComboBoxOffice_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox combo = (ComboBox)sender;
+            Office selectedOffice = (Office)combo.SelectedItem;
+            currentOffice = selectedOffice;
+        }
+
+        private void ComboBoxTenant_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox combo = (ComboBox)sender;
+            Tenant selectedTenant = (Tenant)combo.SelectedItem;
+            currentTenant= selectedTenant;
         }
     }
 }

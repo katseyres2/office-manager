@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF.View"
         mc:Ignorable="d"
-        Title="ContractCreationView" Height="450" Width="800">
-    <Grid>
-        
+        Title="Contract Creation" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label FontSize="15" Grid.Row="0" Grid.Column="0" Visibility="Collapsed">Id</Label>
+        <TextBox Name="contractId" Text="{Binding ContractId, Mode=OneWay}" Grid.Row="0" Grid.Column="1" Visibility="Collapsed"/>
+
+        <Label FontSize="15" Grid.Row="1" Grid.Column="0">Start date</Label>
+        <DatePicker Name="contractStartDate" Grid.Row="1" Grid.Column="1" SelectedDate="{Binding EndDate}"/>
+
+        <Label FontSize="15" Grid.Row="2">End date</Label>
+        <DatePicker Name="contractEndDate" Grid.Row="2" Grid.Column="1" SelectedDate="{Binding StartDate}"/>
+
+        <Label FontSize="15" Grid.Row="12">Tenant</Label>
+        <ComboBox Name="ComboBoxTenant" DisplayMemberPath="FirstName" Grid.Row="12" Grid.Column="1" SelectionChanged="ComboBoxTenant_SelectionChanged"/>
+
+        <Label FontSize="15" Grid.Row="13">Office</Label>
+        <ComboBox Name="ComboBoxOffice" DisplayMemberPath="OfficeId" Grid.Row="13" Grid.Column="1" SelectionChanged="ComboBoxOffice_SelectionChanged"/>
+
+        <Button Content="Cancel" Name="CancelButton" Click="CancelButton_Click"  Grid.Row="20" Grid.Column="2" MinWidth="60" Margin="10"/>
+        <Button Content="Save" Name="SaveButton" Click="SaveButton_Click"  Grid.Row="20" Grid.Column="3" MinWidth="60" Margin="10"/>
     </Grid>
 </Window>

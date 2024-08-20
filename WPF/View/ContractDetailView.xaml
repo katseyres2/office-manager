@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF.View"
         mc:Ignorable="d"
         Title="Contract Detail" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>

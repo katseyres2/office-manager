@@ -27,14 +27,14 @@ namespace PGBD_Project.BU
             return contracts;
         }
 
-        private static Contract CreateContract(DateTime? startDate, DateTime? endDate, Office office, Tenant tenant)
+        private static Contract CreateContract(DateTime? startDate, DateTime? endDate, int officeId, int tenantId)
         {
             Contract contract = new()
             {
                 StartDate = startDate,
                 EndDate = endDate,
-                Office = office,
-                Tenant = tenant,
+                OfficeId = officeId,
+                TenantId = tenantId,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
             };
@@ -45,7 +45,7 @@ namespace PGBD_Project.BU
         public static void AddContract(DateTime? startDate, DateTime? endDate, Office office, Tenant tenant)
         {
             using FlexiWorkspaceContext db = new();
-            db.Contracts.Add(CreateContract(startDate, endDate, office, tenant));
+            db.Contracts.Add(CreateContract(startDate, endDate, office.OfficeId, tenant.TenantId));
             db.SaveChanges();
         }
 

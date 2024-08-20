@@ -77,13 +77,13 @@ namespace WPF.ViewModel
             }
         }
 
-        public void OpenContractCreationWindow()
+        public void OpenContractCreationWindow(OfficeViewModel officeViewModel, TenantViewModel tenantViewModel)
         {
-            //Window window = new ContractCreationView(this);
-            //if (window.ShowDialog() == true)
-            //{
+            Window window = new ContractCreationView(officeViewModel, tenantViewModel, this);
+            if (window.ShowDialog() == true)
+            {
 
-            //}
+            }
         }
     }
 }
