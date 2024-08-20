@@ -29,15 +29,17 @@ namespace WPF
         public readonly OwnerViewModel OwnerViewModel;
         public readonly TenantViewModel TenantViewModel;
         public readonly OfficeViewModel OfficeViewModel;
+        private readonly ContractViewModel contractViewModel;
         private int currentTabIndex;
 
         public MainWindow()
         {
             InitializeComponent();
-            
+
             OwnerViewModel = new();
             TenantViewModel = new();
             OfficeViewModel = new();
+            contractViewModel = new();
 
             DataContext = OwnerViewModel;
         }
@@ -62,16 +64,11 @@ namespace WPF
                 Office office = (Office)dataGridOffices.Items.GetItemAt(row);
                 OfficeViewModel.OpenOfficeDetailWindow(office, OwnerViewModel);
             }
-        }
-
-        private void CreateOwner_Click(object sender, RoutedEventArgs e)
-        {
-            OwnerViewModel.OpenOwnerCreationWindow();
-        }
-
-        private void CreateTenant_Click(object sender, RoutedEventArgs e)
-        {
-            TenantViewModel.OpenTenantCreationWindow();
+            else if (tabControl.SelectedIndex == ContractTab.TabIndex)
+            {
+                Contract contract = (Contract)dataGridContracts.Items.GetItemAt(row);
+                contractViewModel.OpenContractDetailWindow(contract, OfficeViewModel, TenantViewModel);
+            }
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,15 +81,38 @@ namespace WPF
                 if (OwnerTab.IsSelected) DataContext = OwnerViewModel;
                 else if (TenantTab.IsSelected) DataContext = TenantViewModel;
                 else if (OfficeTab.IsSelected) DataContext = OfficeViewModel;
+                else if (ContractTab.IsSelected) DataContext = contractViewModel;
                 else throw new TabNotFoundException();
 
                 currentTabIndex = selectedIndex;
             }
         }
 
+        private void CreateOwner_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerViewModel.OpenOwnerCreationWindow();
+        }
+
+        private void CreateTenant_Click(object sender, RoutedEventArgs e)
+        {
+            TenantViewModel.OpenTenantCreationWindow();
+        }
+
+       
+
         private void CreateOffice_Click(object sender, RoutedEventArgs e)
         {
             OfficeViewModel.OpenOfficeCreationWindow(OwnerViewModel);
+        }
+
+        private void SwitchDeletedItemDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            //_hideDeletedItems = !_hideDeletedItems;
+        }
+
+        private void CreateContract_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

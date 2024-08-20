@@ -24,6 +24,14 @@ namespace PGBD_Project.BU
             };
         }
 
+        public static Predicate<Tenant> FindTenantById(int id)
+        {
+            return delegate (Tenant tenant)
+            {
+                return tenant.TenantId == id;
+            };
+        }
+
         public static Predicate<Address> FindAddressById(int id)
         {
             return delegate (Address address)

@@ -13,10 +13,21 @@ namespace PGBD_Project.BU
         public static List<Contract> GetContracts()
         {
             using FlexiWorkspaceContext db = new();
-            return db.Contracts.ToList();
+
+            List<Contract> contracts = db.Contracts.ToList();
+            List<Tenant> tenants = UserService.GetTenants();
+            List<Office> offices = WorkspaceService.GetOffices();
+
+            foreach (Contract contract in contracts)
+            {
+                contract.Tenant = tenants.Find(UserService.FindTenantById(contract.TenantId));
+                contract.Office = offices.Find(WorkspaceService.FindOfficeById(contract.OfficeId));
+            }
+
+            return contracts;
         }
 
-        public static Contract CreateContract(DateTime? startDate, DateTime? endDate, Office office, Tenant tenant)
+        private static Contract CreateContract(DateTime? startDate, DateTime? endDate, Office office, Tenant tenant)
         {
             Contract contract = new()
             {
@@ -31,10 +42,10 @@ namespace PGBD_Project.BU
             return contract;
         }
 
-        public static void AddContract(Contract contract)
+        public static void AddContract(DateTime? startDate, DateTime? endDate, Office office, Tenant tenant)
         {
             using FlexiWorkspaceContext db = new();
-            db.Contracts.Add(contract);
+            db.Contracts.Add(CreateContract(startDate, endDate, office, tenant));
             db.SaveChanges();
         }
 

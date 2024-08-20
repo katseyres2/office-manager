@@ -10,6 +10,14 @@ namespace PGBD_Project.BU
 {
     public class WorkspaceService
     {
+        public static Predicate<Office> FindOfficeById(int id)
+        {
+            return delegate (Office office)
+            {
+                return office.OfficeId == id;
+            };
+        }
+
         public static List<Office> GetOffices()
         {
             using FlexiWorkspaceContext db = new();
