@@ -107,8 +107,18 @@ namespace WPF.View
             currentContract.StartDate = startDate;
             currentContract.EndDate = endDate;
 
-            currentContract.Office = currentOffice;
-            currentContract.Tenant = currentTenant;
+            currentContract.Office = null!;
+            currentContract.Tenant = null!;
+
+            if (currentOffice != null)
+            {
+                currentContract.OfficeId = currentOffice.OfficeId;
+            }
+
+            if (currentTenant != null)
+            {
+                currentContract.TenantId = currentTenant.TenantId;
+            }
 
             contractViewModel.UpdateContract(currentContract);
             Close();

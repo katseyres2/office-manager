@@ -39,11 +39,24 @@ namespace WPF.ViewModel
             }
         }
 
+        public void Refresh()
+        {
+            _contracts.Clear();
+            List<Contract> DBContracts = RentService.GetContracts();
+
+            foreach (Contract DBContract in DBContracts)
+            {
+                DBContract.Tenant = UserService.GetTenants().FirstOrDefault(t => t.TenantId == DBContract.TenantId)!;
+                DBContract.Office = WorkspaceService.GetOffices().FirstOrDefault(o => o.OfficeId == DBContract.OfficeId)!;
+                _contracts.Add(DBContract);
+            }
+        }
+
         public void UpdateContract(Contract contract)
         {
             contract.UpdatedAt = DateTime.Now;
             RentService.UpdateContract(contract);
-            Contracts.Clear();
+            _contracts.Clear();
 
             foreach (Contract DBContract in RentService.GetContracts())
             {
@@ -59,7 +72,7 @@ namespace WPF.ViewModel
         public void CreateContract(DateTime? startDate, DateTime? endDate, Office office, Tenant tenant)
         {
             RentService.AddContract(startDate, endDate, office, tenant);
-            Contracts.Clear();
+            _contracts.Clear();
             List<Contract> DBContracts = RentService.GetContracts();
 
             foreach (Contract DBContract in DBContracts)

@@ -25,9 +25,20 @@ namespace WPF.ViewModel
             _owners = new(UserService.GetOwners());
         }
 
-        public void RefreshOwners()
+        public void Refresh(bool hideDeletedItems)
         {
-            Owners = new(UserService.GetOwners());
+            _owners.Clear();
+            List<Owner> DBOwners = UserService.GetOwners();
+
+            if (hideDeletedItems)
+            {
+                DBOwners = DBOwners.Where(dbo => dbo.Active).ToList();
+            }
+
+            foreach (Owner owner in DBOwners)
+            {
+                _owners.Add(owner);
+            }
         }
 
         public ObservableCollection<Owner> Owners

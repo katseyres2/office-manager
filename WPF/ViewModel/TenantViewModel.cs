@@ -29,6 +29,22 @@ namespace WPF.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public void Refresh(bool hideDeletedItems)
+        {
+            _tenants.Clear();
+            List<Tenant> DBTenants = UserService.GetTenants();
+
+            if (hideDeletedItems)
+            {
+                DBTenants = DBTenants.Where(dbt => dbt.Active).ToList();
+            }
+
+            foreach (Tenant DBTenant in DBTenants)
+            {
+                _tenants.Add(DBTenant);
+            }
+        }
+
         public ObservableCollection<Tenant> Tenants
         {
             get => _tenants??= new(UserService.GetTenants());
@@ -43,12 +59,6 @@ namespace WPF.ViewModel
         {
             tenant.UpdatedAt = DateTime.Now;
             UserService.UpdateTenant(tenant);
-            Tenants.Clear();
-
-            foreach (Tenant DBTenant in UserService.GetTenants())
-            {
-                Tenants.Add(DBTenant);
-            }
         }
 
         public void DeleteTenant(Tenant tenant)
@@ -59,13 +69,6 @@ namespace WPF.ViewModel
         public void CreateTenant(string? firstname, string? lastname, bool active, string? phone, string? email, string addressNumber, string street, string postCode, string city, string country)
         {
             UserService.AddTenant(firstname, lastname, active, phone, email, addressNumber, street, postCode, city, country);
-            Tenants.Clear();
-            List<Tenant> DBTenants= UserService.GetTenants();
-
-            foreach (Tenant t in DBTenants)
-            {
-                Tenants.Add(t);
-            }
         }
 
         public void OpenTenantDetailWindow(Tenant tenant)

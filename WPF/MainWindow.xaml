@@ -6,135 +6,144 @@
     xmlns:local="clr-namespace:WPF"
     mc:Ignorable="d"
     Title="Flexi Workspace" Height="600" Width="1000">
-    <TabControl SelectionChanged="TabControl_SelectionChanged" Name="tabControl">
-        <TabItem Header="Owners" Name="OwnerTab" TabIndex="0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <DataGrid Margin="10" Grid.Row="0" Name="dataGridOwners" IsReadOnly="True" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Owners}">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Width="Auto" Header="Active" Binding="{Binding Active}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Id" Binding="{Binding OwnerId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
-                        <DataGridTextColumn     Width="Auto" Header="Label" Binding="{Binding Label}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="VAT" Binding="{Binding Tva}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="*" Header="# Offices" Binding="{Binding Offices.Count}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="CreatedAt" Binding="{Binding CreatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
-                        <DataGridTextColumn     Width="Auto" Visibility="Collapsed" Header="Last Update" Binding="{Binding UpdatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True"/>
-                    </DataGrid.Columns>
-                    <DataGrid.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridCell_PreviewMouseDoubleClick"/>
-                        </Style>
-                    </DataGrid.CellStyle>
-                </DataGrid>
-                <!--<Button Visibility="Visible" Grid.Row="1" Width="170" Grid.Column="1" Margin="5" Height="Auto" Content="Switch deleted item display" Name="SwitchDeletedItemDisplay" Click="SwitchDeletedItemDisplay_Click"/>-->
-                <Button Grid.Row="1" Width="100" Height="Auto" Margin="10" Content="Create Owner" HorizontalAlignment="Right" Name="CreateOwner" Click="CreateOwner_Click"/>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Tenants" Name="TenantTab" TabIndex="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <DataGrid Margin="10" Grid.Row="0" Name="dataGridTenants" IsReadOnly="True" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Tenants}">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Width="Auto" Header="Active" Binding="{Binding Active}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Id" Binding="{Binding TenantId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
-                        <DataGridTextColumn     Width="Auto" Header="FirstName" Binding="{Binding FirstName}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="LastName" Binding="{Binding LastName}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Phone" Binding="{Binding Phone}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Email" Binding="{Binding Email}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="CreatedAt" Binding="{Binding CreatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
-                        <DataGridTextColumn     Width="Auto" Header="UpdatedAt" Binding="{Binding UpdatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
-                        <DataGridTextColumn     Width="Auto" Header="Number" Binding="{Binding Address.Number}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Street" Binding="{Binding Address.Street}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="PostCode" Binding="{Binding Address.PostCode}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="City" Binding="{Binding Address.City}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="*" Header="Country" Binding="{Binding Address.Country}" IsReadOnly="True"/>
-                    </DataGrid.Columns>
-                    <DataGrid.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridCell_PreviewMouseDoubleClick"/>
-                        </Style>
-                    </DataGrid.CellStyle>
-                </DataGrid>
-                <Button Grid.Row="1" Width="100" Height="Auto" Margin="10" Content="Create Tenant" HorizontalAlignment="Right" Name="CreateTenant" Click="CreateTenant_Click"/>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Offices" Name="OfficeTab" TabIndex="2">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <DataGrid Margin="10" Grid.Row="0" Name="dataGridOffices" IsReadOnly="True" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Offices}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn     Width="Auto" Header="Id" Binding="{Binding OfficeId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
-                        <DataGridCheckBoxColumn Width="Auto" Header="Active" Binding="{Binding Active}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Reservations" Binding="{Binding Contracts.Count}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Rent (€/day)" Binding="{Binding Rent, StringFormat=N2}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Surface (m²)" Binding="{Binding Surface, StringFormat=N2}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Owner" Binding="{Binding Owner.Label}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="CreatedAt" Binding="{Binding CreatedAt, StringFormat=\{0:dd\/MM\/yyyy HHmm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
-                        <DataGridTextColumn     Width="Auto" Header="Last Update" Binding="{Binding UpdatedAt, StringFormat=\{0:dd\/MM\/yyyy HHmm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
-                        <DataGridTextColumn     Width="Auto" Header="Number" Binding="{Binding Address.Number}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="Street" Binding="{Binding Address.Street}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="PostCode" Binding="{Binding Address.PostCode}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="Auto" Header="City" Binding="{Binding Address.City}" IsReadOnly="True"/>
-                        <DataGridTextColumn     Width="*" Header="Country" Binding="{Binding Address.Country}" IsReadOnly="True"/>
-                    </DataGrid.Columns>
-                    <DataGrid.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridCell_PreviewMouseDoubleClick"/>
-                        </Style>
-                    </DataGrid.CellStyle>
-                </DataGrid>
-                <Grid Grid.Column="0" Grid.Row="1" Height="40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl SelectionChanged="TabControl_SelectionChanged" Name="tabControl">
+            <TabItem Header="Owners" Name="OwnerTab" TabIndex="0">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="1" Grid.Column="0" Width="100" Margin="5" Height="Auto" Content="Create Office" HorizontalAlignment="Right" Name="CreateOffice" Click="CreateOffice_Click"/>
+                    <DataGrid Margin="10" Grid.Row="0" Name="dataGridOwners" IsReadOnly="True" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Owners}">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Width="Auto" Header="Active" Binding="{Binding Active}" IsReadOnly="True" Visibility="Collapsed"/>
+                            <DataGridTextColumn     Width="Auto" Header="Id" Binding="{Binding OwnerId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
+                            <DataGridTextColumn     Width="Auto" Header="Label" Binding="{Binding Label}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="VAT" Binding="{Binding Tva}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="*" Header="# Offices" Binding="{Binding Offices.Count}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="CreatedAt" Binding="{Binding CreatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
+                            <DataGridTextColumn     Width="Auto" Visibility="Collapsed" Header="Last Update" Binding="{Binding UpdatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridCell_PreviewMouseDoubleClick"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+                    </DataGrid>
+                    <Button Grid.Row="1" Width="100" Height="Auto" Margin="10" Content="Create Owner" HorizontalAlignment="Right" Name="CreateOwner" Click="CreateOwner_Click"/>
                 </Grid>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Contracts" Name="ContractTab" TabIndex="3">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <DataGrid Margin="10" Grid.Row="0" Name="dataGridContracts" IsReadOnly="True" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Contracts}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="Auto" Header="Office Id" Binding="{Binding Office.OfficeId}" Visibility="Collapsed" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="Auto" Header="Owner" Binding="{Binding Office.Owner.Label}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
-                        <DataGridTextColumn Width="Auto" Header="Id" Binding="{Binding ContractId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
-                        <DataGridTextColumn Width="Auto" Header="Tenant" Binding="{Binding Tenant.FirstName}" IsReadOnly="True" Visibility="Visible" SortDirection="Ascending"/>
-                        <DataGridTextColumn Width="Auto" Header="Start" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="Auto" Header="End" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="Auto" Header="CreatedAt" Binding="{Binding CreatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
-                        <DataGridTextColumn Width="Auto" Header="Last update" Binding="{Binding UpdatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Visibility="Visible"/>
-                        <DataGridTextColumn Width="Auto" Header="Office Number" Binding="{Binding Office.Address.Number}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="Auto" Header="Office Street" Binding="{Binding Office.Address.Street}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="Auto" Header="Office PostCode" Binding="{Binding Office.Address.PostCode}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="Auto" Header="Office City" Binding="{Binding Office.Address.City}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Header="Office Country" Binding="{Binding Office.Address.Country}" IsReadOnly="True"/>
-                    </DataGrid.Columns>
-                    <DataGrid.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridCell_PreviewMouseDoubleClick"/>
-                        </Style>
-                    </DataGrid.CellStyle>
-                </DataGrid>
-                <Button Grid.Row="1" Grid.Column="0" Width="100" Margin="5" Height="Auto" Content="Create Contract" HorizontalAlignment="Right" Name="CreateContract" Click="CreateContract_Click"/>
-            </Grid>
-        </TabItem>
-    </TabControl>
+            </TabItem>
+            <TabItem Header="Tenants" Name="TenantTab" TabIndex="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Margin="10" Grid.Row="0" Name="dataGridTenants" IsReadOnly="True" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Tenants}">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Width="Auto" Header="Active" Binding="{Binding Active}" IsReadOnly="True" Visibility="Collapsed"/>
+                            <DataGridTextColumn     Width="Auto" Header="Id" Binding="{Binding TenantId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
+                            <DataGridTextColumn     Width="Auto" Header="FirstName" Binding="{Binding FirstName}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="LastName" Binding="{Binding LastName}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="Phone" Binding="{Binding Phone}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="Email" Binding="{Binding Email}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="CreatedAt" Binding="{Binding CreatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
+                            <DataGridTextColumn     Width="Auto" Header="UpdatedAt" Binding="{Binding UpdatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
+                            <DataGridTextColumn     Width="Auto" Header="Number" Binding="{Binding Address.Number}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="Street" Binding="{Binding Address.Street}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="PostCode" Binding="{Binding Address.PostCode}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="City" Binding="{Binding Address.City}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="*" Header="Country" Binding="{Binding Address.Country}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridCell_PreviewMouseDoubleClick"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+                    </DataGrid>
+                    <Button Grid.Row="1" Width="100" Height="Auto" Margin="10" Content="Create Tenant" HorizontalAlignment="Right" Name="CreateTenant" Click="CreateTenant_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Offices" Name="OfficeTab" TabIndex="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Margin="10" Grid.Row="0" Name="dataGridOffices" IsReadOnly="True" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Offices}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn     Width="Auto" Header="Id" Binding="{Binding OfficeId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
+                            <DataGridCheckBoxColumn Width="Auto" Header="Active" Binding="{Binding Active}" IsReadOnly="True" Visibility="Collapsed"/>
+                            <DataGridTextColumn     Width="Auto" Header="Reservations" Binding="{Binding Contracts.Count}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="Rent (daily)" Binding="{Binding Rent, StringFormat={}{0:#,#.00 €}}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="Surface (m²)" Binding="{Binding Surface, StringFormat=N2}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="Owner" Binding="{Binding Owner.Label}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="CreatedAt" Binding="{Binding CreatedAt, StringFormat=\{0:dd\/MM\/yyyy HHmm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
+                            <DataGridTextColumn     Width="Auto" Header="Last Update" Binding="{Binding UpdatedAt, StringFormat=\{0:dd\/MM\/yyyy HHmm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
+                            <DataGridTextColumn     Width="Auto" Header="Number" Binding="{Binding Address.Number}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="Street" Binding="{Binding Address.Street}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="PostCode" Binding="{Binding Address.PostCode}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="City" Binding="{Binding Address.City}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="*" Header="Country" Binding="{Binding Address.Country}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridCell_PreviewMouseDoubleClick"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+                    </DataGrid>
+                    <Grid Grid.Column="0" Grid.Row="1" Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="1" Grid.Column="0" Width="100" Margin="5" Height="Auto" Content="Create Office" HorizontalAlignment="Right" Name="CreateOffice" Click="CreateOffice_Click"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Contracts" Name="ContractTab" TabIndex="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Margin="10" Grid.Row="0" Name="dataGridContracts" IsReadOnly="True" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Contracts}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="Auto" Header="Office Id" Binding="{Binding Office.OfficeId}" Visibility="Collapsed" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="Auto" Header="Owner" Binding="{Binding Office.Owner.Label}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
+                            <DataGridTextColumn Width="Auto" Header="Id" Binding="{Binding ContractId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
+                            <DataGridTextColumn Width="Auto" Header="Tenant" Binding="{Binding Tenant.FirstName}" IsReadOnly="True" Visibility="Visible" SortDirection="Ascending"/>
+                            <DataGridTextColumn Width="Auto" Header="Start" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="Auto" Header="End" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="Auto" Header="CreatedAt" Binding="{Binding CreatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
+                            <DataGridTextColumn Width="Auto" Header="Last update" Binding="{Binding UpdatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Visibility="Visible"/>
+                            <DataGridTextColumn Width="Auto" Header="Office Number" Binding="{Binding Office.Address.Number}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="Auto" Header="Office Street" Binding="{Binding Office.Address.Street}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="Auto" Header="Office PostCode" Binding="{Binding Office.Address.PostCode}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="Auto" Header="Office City" Binding="{Binding Office.Address.City}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="*" Header="Office Country" Binding="{Binding Office.Address.Country}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridCell_PreviewMouseDoubleClick"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+                    </DataGrid>
+                    <Button Grid.Row="1" Grid.Column="0" Width="100" Margin="5" Height="Auto" Content="Create Contract" HorizontalAlignment="Right" Name="CreateContract" Click="CreateContract_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button HorizontalAlignment="Right" Visibility="Visible" Grid.Row="1" Width="170" Grid.Column="1" Margin="5" Height="Auto" Name="SwitchDeletedItemDisplay" Click="SwitchDeletedItemDisplay_Click"/>
+    </Grid>
 </Window>

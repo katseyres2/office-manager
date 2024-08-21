@@ -29,6 +29,27 @@ namespace WPF.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public void Refresh(bool hideDeletedItems)
+        {
+            _offices.Clear();
+            List<Office> DBOffices = WorkspaceService.GetOffices();
+            
+            if (hideDeletedItems)
+            {
+                DBOffices = DBOffices.Where(dbo => dbo.Active).ToList();
+            }
+
+            List<Owner> DBOwners = UserService.GetOwners();
+            List<Address> DBAddresses = UserService.GetAddresses();
+
+            foreach (Office DBOffice in DBOffices)
+            {
+                DBOffice.Owner = DBOwners.FirstOrDefault(o => o.OwnerId == DBOffice.OwnerId)!;
+                DBOffice.Address = DBAddresses.FirstOrDefault(a => a.AddressId == DBOffice.AddressId)!;
+                _offices.Add(DBOffice);
+            }
+        }
+
         public ObservableCollection<Office> Offices
         {
             get => _offices ??= new(WorkspaceService.GetOffices());
