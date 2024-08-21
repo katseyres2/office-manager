@@ -25,10 +25,10 @@ namespace WPF.View
     public partial class OfficeDetailView : Window
     {
         private readonly Office _currentOffice;
+        private Owner? _currentOwner;
         private readonly OwnerViewModel _ownerViewModel;
         private readonly OfficeViewModel _officeViewModel;
         private readonly ContractViewModel _contractViewModel;
-        private Owner? _currentOwner;
 
         public OfficeDetailView(Office office, OfficeViewModel officeViewModel, OwnerViewModel ownerViewModel, ContractViewModel contractViewModel)
         {
@@ -89,9 +89,25 @@ namespace WPF.View
                 _currentOffice.Address.City = officeCity.Text;
                 _currentOffice.Address.Country = officeCountry.Text;
 
-                _currentOffice.Owner = _currentOwner ?? _currentOffice.Owner;
+                // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+                // This bug that throws a DebugException when updating database took me like 10 hours to resolve
+                // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+                _currentOffice.Owner = null!; // Bullshit Bug Resolved Yeah!!! The virtual Owner was not null, I only have to set to null and update the Office.OwnerId!
                 
+                if (_currentOwner != null)
+                {
+                    _currentOffice.OwnerId = _currentOwner.OwnerId;
+                }
+
                 _officeViewModel.UpdateOffice(_currentOffice);
+
+                // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+                // Yes, this one above!!
+                // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+
+
                 Close();
             }
             catch (FormatException ex) { MessageBox.Show(ex.Message); }
