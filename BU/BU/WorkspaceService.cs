@@ -8,8 +8,16 @@ using PGBD_Project.DB;
 
 namespace PGBD_Project.BU
 {
+    /// <summary>
+    /// Provides services related to managing workspaces, including offices and contracts.
+    /// </summary>
     public class WorkspaceService
     {
+        /// <summary>
+        /// Finds an office by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the office to find.</param>
+        /// <returns>A predicate that matches the office with the specified ID.</returns>
         public static Predicate<Office> FindOfficeById(int id)
         {
             return delegate (Office office)
@@ -18,6 +26,11 @@ namespace PGBD_Project.BU
             };
         }
 
+        /// <summary>
+        /// Finds a contract by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the contract to find.</param>
+        /// <returns>A predicate that matches the contract with the specified ID.</returns>
         public static Predicate<Contract> FindContractById(int id)
         {
             return delegate (Contract contract)
@@ -26,6 +39,10 @@ namespace PGBD_Project.BU
             };
         }
 
+        /// <summary>
+        /// Retrieves a list of offices from the database, with their related addresses, owners, and contracts.
+        /// </summary>
+        /// <returns>A list of offices with their related data.</returns>
         public static List<Office> GetOffices()
         {
             using FlexiWorkspaceContext db = new();
@@ -52,6 +69,20 @@ namespace PGBD_Project.BU
             return offices;
         }
 
+        /// <summary>
+        /// Creates a new office with the specified details.
+        /// </summary>
+        /// <param name="surface">The surface area of the office.</param>
+        /// <param name="description">The description of the office.</param>
+        /// <param name="rent">The rent amount for the office.</param>
+        /// <param name="type">The type of the office.</param>
+        /// <param name="idOwner">The ID of the owner associated with the office.</param>
+        /// <param name="addressNumber">The address number of the office.</param>
+        /// <param name="street">The street where the office is located.</param>
+        /// <param name="postCode">The postal code of the office's location.</param>
+        /// <param name="city">The city where the office is located.</param>
+        /// <param name="country">The country where the office is located.</param>
+        /// <returns>A new instance of the Office class.</returns>
         private static Office CreateOffice(double? surface, string? description, double? rent, int? type, int idOwner, string addressNumber, string street, string postCode, string city, string country)
         {
             Office office = new()
@@ -70,6 +101,19 @@ namespace PGBD_Project.BU
             return office;
         }
 
+        /// <summary>
+        /// Adds a new office to the database.
+        /// </summary>
+        /// <param name="surface">The surface area of the office.</param>
+        /// <param name="description">The description of the office.</param>
+        /// <param name="rent">The rent amount for the office.</param>
+        /// <param name="type">The type of the office.</param>
+        /// <param name="ownerId">The ID of the owner associated with the office.</param>
+        /// <param name="addressNumber">The address number of the office.</param>
+        /// <param name="street">The street where the office is located.</param>
+        /// <param name="postCode">The postal code of the office's location.</param>
+        /// <param name="city">The city where the office is located.</param>
+        /// <param name="country">The country where the office is located.</param>
         public static void AddOffice(double? surface, string? description, double? rent, int? type, int ownerId, string addressNumber, string street, string postCode, string city, string country)
         {
             using FlexiWorkspaceContext db = new();
@@ -77,6 +121,10 @@ namespace PGBD_Project.BU
             db.SaveChanges();
         }
 
+        /// <summary>
+        /// Deletes an existing office from the database.
+        /// </summary>
+        /// <param name="office">The office to delete.</param>
         public static void DeleteOffice(Office office)
         {
             using FlexiWorkspaceContext db = new();
@@ -84,6 +132,10 @@ namespace PGBD_Project.BU
             db.SaveChanges();
         }
 
+        /// <summary>
+        /// Updates an existing office in the database.
+        /// </summary>
+        /// <param name="office">The office to update.</param>
         public static void UpdateOffice(Office office)
         {
             using FlexiWorkspaceContext db = new();

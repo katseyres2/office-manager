@@ -30,6 +30,12 @@ namespace WPF.View
         private Office? currentOffice;
         private Tenant? currentTenant;
 
+        /// <summary>
+        /// Initializes a new instance of the ContractCreationView class.
+        /// </summary>
+        /// <param name="officeViewModel">The OfficeViewModel used to populate the office ComboBox.</param>
+        /// <param name="tenantViewModel">The TenantViewModel used to populate the tenant ComboBox.</param>
+        /// <param name="contractViewModel">The ContractViewModel used to handle contract creation.</param>
         public ContractCreationView(OfficeViewModel officeViewModel, TenantViewModel tenantViewModel, ContractViewModel contractViewModel)
         {
             InitializeComponent();
@@ -37,22 +43,30 @@ namespace WPF.View
             this.tenantViewModel = tenantViewModel;
             this.officeViewModel = officeViewModel;
 
+            // Populate tenant ComboBox with tenants from TenantViewModel
             foreach (Tenant tenant in tenantViewModel.Tenants)
             {
                 ComboBoxTenant.Items.Add(tenant);
             }
 
+            // Populate office ComboBox with offices from OfficeViewModel
             foreach (Office office in officeViewModel.Offices)
             {
                 ComboBoxOffice.Items.Add(office);
             }
         }
 
+        /// <summary>
+        /// Handles the click event of the Cancel button. Closes the window without saving.
+        /// </summary>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Handles the click event of the Save button. Validates input and creates a new contract.
+        /// </summary>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             if (currentTenant == null || currentOffice == null)
@@ -91,6 +105,9 @@ namespace WPF.View
             }
         }
 
+        /// <summary>
+        /// Handles the selection change event for the office ComboBox. Updates the selected office.
+        /// </summary>
         private void ComboBoxOffice_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox combo = (ComboBox)sender;
@@ -98,6 +115,9 @@ namespace WPF.View
             currentOffice = selectedOffice;
         }
 
+        /// <summary>
+        /// Handles the selection change event for the tenant ComboBox. Updates the selected tenant.
+        /// </summary>
         private void ComboBoxTenant_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox combo = (ComboBox)sender;

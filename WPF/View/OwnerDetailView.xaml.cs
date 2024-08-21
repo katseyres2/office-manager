@@ -28,6 +28,11 @@ namespace WPF.View
         public Owner CurrentOwner;
         private OwnerViewModel OwnerViewModel;
 
+        /// <summary>
+        /// Initializes a new instance of the OwnerDetailView class.
+        /// </summary>
+        /// <param name="owner">The current owner to be displayed and edited.</param>
+        /// <param name="ownerViewModel">The OwnerViewModel used to handle owner updates.</param>
         public OwnerDetailView(Owner owner, OwnerViewModel ownerViewModel)
         {
             InitializeComponent();
@@ -36,6 +41,9 @@ namespace WPF.View
             DataContext = CurrentOwner;
         }
 
+        /// <summary>
+        /// Handles the click event of the Save button. Validates input and updates the current owner.
+        /// </summary>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             CurrentOwner.Active = ownerActive.IsChecked ?? CurrentOwner.Active;
@@ -53,11 +61,17 @@ namespace WPF.View
             }
         }
 
+        /// <summary>
+        /// Handles the click event of the Cancel button. Closes the window without saving changes.
+        /// </summary>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Handles the click event of the Delete button. Marks the owner as inactive and updates it.
+        /// </summary>
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             CurrentOwner.Active = false;

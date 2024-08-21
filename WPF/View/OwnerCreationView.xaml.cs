@@ -28,12 +28,19 @@ namespace WPF.View
     {
         private OwnerViewModel OwnerViewModel;
 
+        /// <summary>
+        /// Initializes a new instance of the OwnerCreationView class.
+        /// </summary>
+        /// <param name="ownerViewModel">The OwnerViewModel used to handle owner creation.</param>
         public OwnerCreationView(OwnerViewModel ownerViewModel)
         {
             InitializeComponent();
             OwnerViewModel = ownerViewModel;
         }
 
+        /// <summary>
+        /// Handles the click event of the Create button. Validates input and creates a new owner.
+        /// </summary>
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -46,6 +53,9 @@ namespace WPF.View
             }
         }
 
+        /// <summary>
+        /// Handles the click event of the Cancel button. Closes the window without creating an owner.
+        /// </summary>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();

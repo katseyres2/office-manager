@@ -28,6 +28,11 @@ namespace WPF.View
         private Tenant CurrentTenant;
         private TenantViewModel TenantViewModel;
 
+        /// <summary>
+        /// Initializes a new instance of the TenantDetailView class.
+        /// </summary>
+        /// <param name="tenant">The current tenant to be displayed and edited.</param>
+        /// <param name="tenantViewModel">The TenantViewModel used to handle tenant updates.</param>
         public TenantDetailView(Tenant tenant, TenantViewModel tenantViewModel)
         {
             InitializeComponent();
@@ -36,6 +41,9 @@ namespace WPF.View
             DataContext = CurrentTenant;
         }
 
+        /// <summary>
+        /// Handles the click event of the Delete button. Marks the tenant as inactive and updates it.
+        /// </summary>
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             CurrentTenant.Active = false;
@@ -43,11 +51,17 @@ namespace WPF.View
             Close();
         }
 
+        /// <summary>
+        /// Handles the click event of the Cancel button. Closes the window without saving changes.
+        /// </summary>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Handles the click event of the Save button. Validates input and updates the current tenant.
+        /// </summary>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             try

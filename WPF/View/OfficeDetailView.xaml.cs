@@ -30,6 +30,13 @@ namespace WPF.View
         private readonly OfficeViewModel _officeViewModel;
         private readonly ContractViewModel _contractViewModel;
 
+        /// <summary>
+        /// Initializes a new instance of the OfficeDetailView class.
+        /// </summary>
+        /// <param name="office">The current office to be displayed and edited.</param>
+        /// <param name="officeViewModel">The OfficeViewModel used to handle office updates.</param>
+        /// <param name="ownerViewModel">The OwnerViewModel used to populate the owner ComboBox.</param>
+        /// <param name="contractViewModel">The ContractViewModel used to manage contracts related to the office.</param>
         public OfficeDetailView(Office office, OfficeViewModel officeViewModel, OwnerViewModel ownerViewModel, ContractViewModel contractViewModel)
         {
             InitializeComponent();
@@ -38,6 +45,7 @@ namespace WPF.View
             _ownerViewModel = ownerViewModel;
             _contractViewModel = contractViewModel;
 
+            // Populate owner ComboBox with owners from OwnerViewModel and select current owner
             foreach (Owner o in _ownerViewModel.Owners)
             {
                 ComboBoxOwner.Items.Add(o);
@@ -48,6 +56,7 @@ namespace WPF.View
                 }
             }
 
+            // Clear and repopulate the contracts associated with the current office
             _currentOffice.Contracts.Clear();
 
             foreach (Contract contract in _contractViewModel.Contracts)
@@ -62,6 +71,9 @@ namespace WPF.View
             DataContext = _currentOffice;
         }
 
+        /// <summary>
+        /// Handles the click event of the Delete button. Marks the office as inactive and updates it.
+        /// </summary>
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             _currentOffice.Active = false;
@@ -69,11 +81,17 @@ namespace WPF.View
             Close();
         }
 
+        /// <summary>
+        /// Handles the click event of the Cancel button. Closes the window without saving changes.
+        /// </summary>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Handles the click event of the Save button. Validates input and updates the current office.
+        /// </summary>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -115,6 +133,9 @@ namespace WPF.View
             catch (OverflowException ex) { MessageBox.Show(ex.Message); }
         }
 
+        /// <summary>
+        /// Handles the selection change event for the owner ComboBox. Updates the selected owner.
+        /// </summary>
         private void ComboBoxOwner_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox combo = (ComboBox)sender;

@@ -28,23 +28,35 @@ namespace WPF.View
         private readonly OwnerViewModel _ownerViewModel;
         private Owner? _currentOwner;
 
+        /// <summary>
+        /// Initializes a new instance of the OfficeCreationView class.
+        /// </summary>
+        /// <param name="officeViewModel">The OfficeViewModel used to handle office creation.</param>
+        /// <param name="ownerViewModel">The OwnerViewModel used to populate the owner ComboBox.</param>
         public OfficeCreationView(OfficeViewModel officeViewModel, OwnerViewModel ownerViewModel)
         {
             InitializeComponent();
             _officeViewModel = officeViewModel;
             _ownerViewModel = ownerViewModel;
 
+            // Populate owner ComboBox with owners from OwnerViewModel
             foreach (Owner o in _ownerViewModel.Owners)
             {
                 ComboBoxOwner.Items.Add(o);
             }
         }
 
+        /// <summary>
+        /// Handles the click event of the Cancel button. Closes the window without saving.
+        /// </summary>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Handles the click event of the Save button. Validates input and creates a new office.
+        /// </summary>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             if (_currentOwner == null) 
@@ -75,6 +87,9 @@ namespace WPF.View
             
         }
 
+        /// <summary>
+        /// Handles the selection change event for the owner ComboBox. Updates the selected owner.
+        /// </summary>
         private void ComboBoxOwner_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox combo = (ComboBox)sender;

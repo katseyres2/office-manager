@@ -25,17 +25,27 @@ namespace WPF.View
     {
         private TenantViewModel _tenantViewModel;
 
+        /// <summary>
+        /// Initializes a new instance of the TenantCreationView class.
+        /// </summary>
+        /// <param name="tenantViewModel">The TenantViewModel used to handle tenant creation.</param>
         public TenantCreationView(TenantViewModel tenantViewModel)
         {
             InitializeComponent();
             _tenantViewModel = tenantViewModel;
         }
 
+        /// <summary>
+        /// Handles the click event of the Cancel button. Closes the window without saving changes.
+        /// </summary>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Handles the click event of the Save button. Validates input and creates a new tenant.
+        /// </summary>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             try

@@ -15,11 +15,26 @@ using WPF.View;
 
 namespace WPF.ViewModel
 {
+    /// <summary>
+    /// ViewModel class for managing owners.
+    /// Implements INotifyPropertyChanged to notify the view of changes in properties.
+    /// </summary>
     public class OwnerViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Event to notify when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Stores the collection of owners.
+        /// </summary>
         private ObservableCollection<Owner> _owners;
 
+        /// <summary>
+        /// Initializes a new instance of the OwnerViewModel class.
+        /// Retrieves the list of owners from UserService and assigns it to the Owners property.
+        /// </summary>
         public OwnerViewModel()
         {
             _owners = new(UserService.GetOwners());
@@ -41,6 +56,10 @@ namespace WPF.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets the collection of owners.
+        /// Notifies the UI when the collection is updated.
+        /// </summary>
         public ObservableCollection<Owner> Owners
         {
             get => _owners ??= new(UserService.GetOwners());
@@ -51,6 +70,10 @@ namespace WPF.ViewModel
             }
         }
 
+        /// <summary>
+        /// Updates the specified owner in the collection and the database.
+        /// </summary>
+        /// <param name="owner">The owner to be updated.</param>
         public void UpdateOwner(Owner owner)
         {
             Owners.Remove(owner);
@@ -67,11 +90,12 @@ namespace WPF.ViewModel
             UserService.UpdateOwner(owner);
         }
 
-        public void DeleteOwner(Owner owner)
-        {
-            UserService.DeleteOwner(owner);
-        }
-
+        /// <summary>
+        /// Creates a new owner and adds it to the database.
+        /// Refreshes the Owners collection after creation.
+        /// </summary>
+        /// <param name="label">The label for the owner.</param>
+        /// <param name="tva">The TVA (tax identifier) for the owner.</param>
         public void CreateOwner(string? label, string? tva)
         {
             UserService.AddOwner(label, tva, true);
@@ -84,25 +108,37 @@ namespace WPF.ViewModel
             }
         }
 
+        /// <summary>
+        /// Raises the PropertyChanged event to notify the UI of a property change.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that changed.</param>
         private void OnPropertyRaised(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Opens the owner detail window with the specified owner.
+        /// </summary>
+        /// <param name="owner">The owner to be viewed.</param>
         public void OpenOwnerDetailWindow(Owner owner)
         {
             Window window = new OwnerDetailView(owner, this);
             if (window.ShowDialog() == true)
             {
-                
+                // Optional actions if dialog result is true
             }
         }
+
+        /// <summary>
+        /// Opens the owner creation window.
+        /// </summary>
         public void OpenOwnerCreationWindow()
         {
             Window window = new OwnerCreationView(this);
             if (window.ShowDialog() == true)
             {
-
+                // Optional actions if dialog result is true
             }
         }
     }

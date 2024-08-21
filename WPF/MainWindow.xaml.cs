@@ -33,6 +33,10 @@ namespace WPF
         private int _currentTabIndex;
         private bool _hideDeletedItems = true;
 
+        /// <summary>
+        /// Initializes a new instance of the MainWindow class.
+        /// Sets up ViewModels and binds the DataContext to the OwnerViewModel.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -48,6 +52,9 @@ namespace WPF
             DataContext = _ownerViewModel;
         }
 
+        /// <summary>
+        /// Refreshes the views of all ViewModel instances.
+        /// </summary>
         private void RefreshModelViews()
         {
             _ownerViewModel.Refresh(_hideDeletedItems);
@@ -56,6 +63,9 @@ namespace WPF
             _contractViewModel.Refresh();
         }
 
+        /// <summary>
+        /// Handles double-click events on data grid cells to open detail views for selected items.
+        /// </summary>
         private void DataGridCell_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGridCell cell = (DataGridCell)sender;
@@ -85,6 +95,9 @@ namespace WPF
             RefreshModelViews();
         }
 
+        /// <summary>
+        /// Handles tab selection changes to update the DataContext based on the selected tab.
+        /// </summary>
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.Source is TabControl tabControl && tabControl.SelectedIndex != _currentTabIndex)
@@ -102,31 +115,49 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// Opens the owner creation window when the corresponding button is clicked.
+        /// </summary>
         private void CreateOwner_Click(object sender, RoutedEventArgs e)
         {
             _ownerViewModel.OpenOwnerCreationWindow();
         }
 
+        /// <summary>
+        /// Opens the tenant creation window when the corresponding button is clicked.
+        /// </summary>
         private void CreateTenant_Click(object sender, RoutedEventArgs e)
         {
             _tenantViewModel.OpenTenantCreationWindow();
         }
 
+        /// <summary>
+        /// Opens the office creation window when the corresponding button is clicked.
+        /// </summary>
         private void CreateOffice_Click(object sender, RoutedEventArgs e)
         {
             _officeViewModel.OpenOfficeCreationWindow(_ownerViewModel);
         }
 
+        /// <summary>
+        /// Opens the contract creation window when the corresponding button is clicked.
+        /// </summary>
         private void CreateContract_Click(object sender, RoutedEventArgs e)
         {
             _contractViewModel.OpenContractCreationWindow(_officeViewModel, _tenantViewModel);
         }
 
+        /// <summary>
+        /// Updates the content of the button that switches the display of deleted items.
+        /// </summary>
         private void RefreshFilterDeletedItemButtonContent()
         {
             SwitchDeletedItemDisplay.Content = (_hideDeletedItems ? "Show" : "Hide") + " Deleted Items";
         }
 
+        /// <summary>
+        /// Toggles the display of deleted items and refreshes the views when the corresponding button is clicked.
+        /// </summary>
         private void SwitchDeletedItemDisplay_Click(object sender, RoutedEventArgs e)
         {
             _hideDeletedItems = !_hideDeletedItems;
