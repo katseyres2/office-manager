@@ -29,6 +29,7 @@ namespace WPF.View
         private readonly OwnerViewModel _ownerViewModel;
         private readonly OfficeViewModel _officeViewModel;
         private readonly ContractViewModel _contractViewModel;
+        private readonly AddressViewModel _addressViewModel;
 
         /// <summary>
         /// Initializes a new instance of the OfficeDetailView class.
@@ -37,13 +38,14 @@ namespace WPF.View
         /// <param name="officeViewModel">The OfficeViewModel used to handle office updates.</param>
         /// <param name="ownerViewModel">The OwnerViewModel used to populate the owner ComboBox.</param>
         /// <param name="contractViewModel">The ContractViewModel used to manage contracts related to the office.</param>
-        public OfficeDetailView(Office office, OfficeViewModel officeViewModel, OwnerViewModel ownerViewModel, ContractViewModel contractViewModel)
+        public OfficeDetailView(Office office, OfficeViewModel officeViewModel, OwnerViewModel ownerViewModel, ContractViewModel contractViewModel, AddressViewModel addressViewModel)
         {
             InitializeComponent();
             _currentOffice = office;
             _officeViewModel = officeViewModel;
             _ownerViewModel = ownerViewModel;
             _contractViewModel = contractViewModel;
+            _addressViewModel = addressViewModel;
 
             // Populate owner ComboBox with owners from OwnerViewModel and select current owner
             foreach (Owner o in _ownerViewModel.Owners)
@@ -101,24 +103,28 @@ namespace WPF.View
                 _currentOffice.Active = officeActive.IsChecked ?? _currentOffice.Active;
                 _currentOffice.Type = Int32.Parse(officeType.Text);
 
-                _currentOffice.Address.Number = officeAddressNumber.Text;
-                _currentOffice.Address.Street = officeStreet.Text;
-                _currentOffice.Address.PostCode = officePostCode.Text;
-                _currentOffice.Address.City = officeCity.Text;
-                _currentOffice.Address.Country = officeCountry.Text;
-
                 // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
                 // This bug that throws a DebugException when updating database took me like 10 hours to resolve
                 // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
                 _currentOffice.Owner = null!; // Bullshit Bug Resolved Yeah!!! The virtual Owner was not null, I only have to set to null and update the Office.OwnerId!
+                _currentOffice.Address = null!;
                 
                 if (_currentOwner != null)
                 {
                     _currentOffice.OwnerId = _currentOwner.OwnerId;
                 }
 
+                Address address = _addressViewModel.Addresses.First(a => a.AddressId == _currentOffice.AddressId);
+                
+                address.Number = officeAddressNumber.Text;
+                address.Street = officeStreet.Text;
+                address.PostCode = officePostCode.Text;
+                address.City = officeCity.Text;
+                address.Country = officeCountry.Text;
+
                 _officeViewModel.UpdateOffice(_currentOffice);
+                _addressViewModel.UpdateAddress(address);
 
                 // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
                 // Yes, this one above!!

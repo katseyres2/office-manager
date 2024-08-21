@@ -75,7 +75,7 @@ namespace WPF.ViewModel
         /// </summary>
         public ObservableCollection<Office> Offices
         {
-            get => _offices ??= new(WorkspaceService.GetOffices());
+            get => _offices;
             set
             {
                 _offices= value;
@@ -132,9 +132,9 @@ namespace WPF.ViewModel
         /// </summary>
         /// <param name="office">The office to be viewed.</param>
         /// <param name="ownerViewModel">The owner view model.</param>
-        public void OpenOfficeDetailWindow(Office office, OwnerViewModel ownerViewModel, ContractViewModel contractViewModel)
+        public void OpenOfficeDetailWindow(Office office, OwnerViewModel ownerViewModel, ContractViewModel contractViewModel, AddressViewModel addressViewModel)
         {
-            Window window = new OfficeDetailView(office, this, ownerViewModel, contractViewModel);
+            Window window = new OfficeDetailView(office, this, ownerViewModel, contractViewModel, addressViewModel);
             if (window.ShowDialog() == true)
             {
                 // Optional actions if dialog result is true

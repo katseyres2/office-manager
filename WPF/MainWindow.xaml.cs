@@ -30,6 +30,8 @@ namespace WPF
         private readonly TenantViewModel _tenantViewModel;
         private readonly OfficeViewModel _officeViewModel;
         private readonly ContractViewModel _contractViewModel;
+        private readonly AddressViewModel _addressViewModel;
+        
         private int _currentTabIndex;
         private bool _hideDeletedItems = true;
 
@@ -45,6 +47,7 @@ namespace WPF
             _tenantViewModel = new();
             _officeViewModel = new();
             _contractViewModel = new();
+            _addressViewModel = new();
             
             RefreshFilterDeletedItemButtonContent();
             RefreshModelViews();
@@ -84,7 +87,7 @@ namespace WPF
             else if (tabControl.SelectedIndex == OfficeTab.TabIndex)
             {
                 Office office = (Office)dataGridOffices.Items.GetItemAt(row);
-                _officeViewModel.OpenOfficeDetailWindow(office, _ownerViewModel, _contractViewModel);
+                _officeViewModel.OpenOfficeDetailWindow(office, _ownerViewModel, _contractViewModel, _addressViewModel);
             }
             else if (tabControl.SelectedIndex == ContractTab.TabIndex)
             {
