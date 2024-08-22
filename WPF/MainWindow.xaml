@@ -50,7 +50,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn     Width="Auto" Header="Id" Binding="{Binding TenantId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
                             <DataGridCheckBoxColumn Width="Auto" Header="Active" Binding="{Binding Active}" IsReadOnly="True" Visibility="Collapsed"/>
-                            <!--<DataGridTextColumn     Width="Auto" Header="# of Contracts" Binding="{Binding Contracts.Count}" IsReadOnly="True" Visibility="Visible"/>-->
+                            <DataGridTextColumn     Width="Auto" Header="# of Contracts" Binding="{Binding Contracts.Count}" IsReadOnly="True" Visibility="Visible"/>
                             <DataGridTextColumn     Width="Auto" Header="FirstName" Binding="{Binding FirstName}" IsReadOnly="True"/>
                             <DataGridTextColumn     Width="Auto" Header="LastName" Binding="{Binding LastName}" IsReadOnly="True"/>
                             <DataGridTextColumn     Width="Auto" Header="Phone" Binding="{Binding Phone}" IsReadOnly="True"/>

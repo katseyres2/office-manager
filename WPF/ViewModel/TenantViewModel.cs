@@ -52,6 +52,7 @@ namespace WPF.ViewModel
         {
             _tenants.Clear();
             List<Tenant> DBTenants = UserService.GetTenants();
+            List<Contract> DBContracts = RentService.GetContracts();
 
             if (hideDeletedItems)
             {
@@ -60,6 +61,13 @@ namespace WPF.ViewModel
 
             foreach (Tenant DBTenant in DBTenants)
             {
+                List<Contract> tenantContracts = DBContracts.Where(dbc => dbc.TenantId == DBTenant.TenantId).ToList();
+
+                foreach (Contract contract in tenantContracts)
+                {
+                    DBTenant.Contracts.Add(contract);
+                }
+                    
                 _tenants.Add(DBTenant);
             }
         }
@@ -84,6 +92,7 @@ namespace WPF.ViewModel
         /// <param name="tenant">The tenant to be updated.</param>
         public void UpdateTenant(Tenant tenant)
         {
+            tenant.Contracts.Clear();
             tenant.UpdatedAt = DateTime.Now;
             UserService.UpdateTenant(tenant);
         }
