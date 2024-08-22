@@ -24,11 +24,11 @@ namespace WPF.View
     /// </summary>
     public partial class ContractCreationView : Window
     {
-        private readonly ContractViewModel contractViewModel;
-        private readonly TenantViewModel tenantViewModel;
-        private readonly OfficeViewModel officeViewModel;
-        private Office? currentOffice;
-        private Tenant? currentTenant;
+        private readonly ContractViewModel _contractViewModel;
+        private readonly TenantViewModel _tenantViewModel;
+        private readonly OfficeViewModel _officeViewModel;
+        private Office? _currentOffice;
+        private Tenant? _currentTenant;
 
         /// <summary>
         /// Initializes a new instance of the ContractCreationView class.
@@ -39,18 +39,32 @@ namespace WPF.View
         public ContractCreationView(OfficeViewModel officeViewModel, TenantViewModel tenantViewModel, ContractViewModel contractViewModel)
         {
             InitializeComponent();
-            this.contractViewModel = contractViewModel;
-            this.tenantViewModel = tenantViewModel;
-            this.officeViewModel = officeViewModel;
+
+            _contractViewModel = contractViewModel;
+            _tenantViewModel = tenantViewModel;
+            _officeViewModel = officeViewModel;
+
+            PopulateTenantComboBox();
+            PopulateOfficeComboBox();
+        }
+
+        private void PopulateTenantComboBox()
+        {
+            List<Tenant> tenants = _tenantViewModel.Tenants.OrderBy(t => t.FirstName).ToList();
 
             // Populate tenant ComboBox with tenants from TenantViewModel
-            foreach (Tenant tenant in tenantViewModel.Tenants)
+            foreach (Tenant tenant in tenants)
             {
                 ComboBoxTenant.Items.Add(tenant);
             }
+        }
+
+        private void PopulateOfficeComboBox()
+        {
+            List<Office> offices = _officeViewModel.Offices.OrderBy(o => o.OfficeId).ToList();
 
             // Populate office ComboBox with offices from OfficeViewModel
-            foreach (Office office in officeViewModel.Offices)
+            foreach (Office office in offices)
             {
                 ComboBoxOffice.Items.Add(office);
             }
@@ -58,36 +72,36 @@ namespace WPF.View
 
         private void RefreshOfficeInformation()
         {
-            if (currentOffice == null) return;
+            if (_currentOffice == null) return;
 
-            OfficeOwnerLabel.Content = currentOffice.Owner.Label;
-            OfficeOwnerVAT.Content = currentOffice.Owner.Tva;
+            OfficeOwnerLabel.Content = _currentOffice.Owner.Label;
+            OfficeOwnerVAT.Content = _currentOffice.Owner.Tva;
 
-            OfficeAddressNumber.Content = currentOffice.Address.Number;
-            OfficeAddressStreet.Content = currentOffice.Address.Street;
-            OfficeAddressPostCode.Content = currentOffice.Address.PostCode;
-            OfficeAddressCity.Content = currentOffice.Address.City;
-            OfficeAddressCountry.Content = currentOffice.Address.Country;
+            OfficeAddressNumber.Content = _currentOffice.Address.Number;
+            OfficeAddressStreet.Content = _currentOffice.Address.Street;
+            OfficeAddressPostCode.Content = _currentOffice.Address.PostCode;
+            OfficeAddressCity.Content = _currentOffice.Address.City;
+            OfficeAddressCountry.Content = _currentOffice.Address.Country;
 
-            OfficeRent.Content = $"{currentOffice.Rent} €";
-            OfficeSurface.Content = $"{currentOffice.Surface} m²";
-            OfficeType.Content = currentOffice.Type;
+            OfficeRent.Content = $"{_currentOffice.Rent} €";
+            OfficeSurface.Content = $"{_currentOffice.Surface} m²";
+            OfficeType.Content = _currentOffice.Type;
         }
 
         private void RefreshTenantInformation()
         {
-            if (currentTenant == null) return;
+            if (_currentTenant == null) return;
 
-            TenantFirstName.Content = currentTenant.FirstName;
-            TenantLastName.Content = currentTenant.LastName;
-            TenantEmail.Content = currentTenant.Email;
-            TenantPhone.Content = currentTenant.Phone;
+            TenantFirstName.Content = _currentTenant.FirstName;
+            TenantLastName.Content = _currentTenant.LastName;
+            TenantEmail.Content = _currentTenant.Email;
+            TenantPhone.Content = _currentTenant.Phone;
 
-            TenantAddressNumber.Content = currentTenant.Address.Number;
-            TenantAddressStreet.Content = currentTenant.Address.Street;
-            TenantAddressPostCode.Content = currentTenant.Address.PostCode;
-            TenantAddressCity.Content = currentTenant.Address.City;
-            TenantAddressCountry.Content = currentTenant.Address.Country;
+            TenantAddressNumber.Content = _currentTenant.Address.Number;
+            TenantAddressStreet.Content = _currentTenant.Address.Street;
+            TenantAddressPostCode.Content = _currentTenant.Address.PostCode;
+            TenantAddressCity.Content = _currentTenant.Address.City;
+            TenantAddressCountry.Content = _currentTenant.Address.Country;
         }
 
         /// <summary>
@@ -103,7 +117,7 @@ namespace WPF.View
         /// </summary>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentTenant == null || currentOffice == null)
+            if (_currentTenant == null || _currentOffice == null)
             {
                 MessageBox.Show("Tenant and office must be not null.");
                 return;
@@ -130,7 +144,7 @@ namespace WPF.View
 
             try
             {
-                contractViewModel.CreateContract(startDate, endDate, currentOffice, currentTenant);
+                _contractViewModel.CreateContract(startDate, endDate, _currentOffice, _currentTenant);
                 Close();
             }
             catch (ReservationOverrideException ex)
@@ -146,7 +160,7 @@ namespace WPF.View
         {
             ComboBox combo = (ComboBox)sender;
             Office selectedOffice = (Office)combo.SelectedItem;
-            currentOffice = selectedOffice;
+            _currentOffice = selectedOffice;
             
             RefreshOfficeInformation();
         }
@@ -158,7 +172,7 @@ namespace WPF.View
         {
             ComboBox combo = (ComboBox)sender;
             Tenant selectedTenant = (Tenant)combo.SelectedItem;
-            currentTenant= selectedTenant;
+            _currentTenant= selectedTenant;
 
             RefreshTenantInformation();
         }

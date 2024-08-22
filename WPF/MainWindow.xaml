@@ -23,11 +23,11 @@
                     </Grid.RowDefinitions>
                     <DataGrid Margin="10" Grid.Row="0" Name="dataGridOwners" IsReadOnly="True" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="True" AutoGenerateColumns="False" ItemsSource="{Binding Owners}">
                         <DataGrid.Columns>
+                            <DataGridTextColumn     Width="Auto" Header="# of Offices" Binding="{Binding Offices.Count}" IsReadOnly="True"/>
                             <DataGridCheckBoxColumn Width="Auto" Header="Active" Binding="{Binding Active}" IsReadOnly="True" Visibility="Collapsed"/>
                             <DataGridTextColumn     Width="Auto" Header="Id" Binding="{Binding OwnerId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
                             <DataGridTextColumn     Width="Auto" Header="Label" Binding="{Binding Label}" IsReadOnly="True"/>
-                            <DataGridTextColumn     Width="Auto" Header="VAT" Binding="{Binding Tva}" IsReadOnly="True"/>
-                            <DataGridTextColumn     Width="*" Header="# Offices" Binding="{Binding Offices.Count}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="*" Header="VAT" Binding="{Binding Tva}" IsReadOnly="True"/>
                             <DataGridTextColumn     Width="Auto" Header="CreatedAt" Binding="{Binding CreatedAt, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
                             <DataGridTextColumn     Width="Auto" Visibility="Collapsed" Header="Last Update" Binding="{Binding UpdatedAt, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True"/>
                         </DataGrid.Columns>

@@ -26,6 +26,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -51,20 +52,22 @@
         <Label FontSize="15" Grid.Row="6">Email</Label>
         <TextBox Name="tenantEmail" Text="{Binding Email, Mode=OneWay}" Grid.Row="6" Grid.Column="1"/>
 
-        <Label FontSize="15" Grid.Row="7">House Number</Label>
-        <TextBox Name="tenantAddressNumber" Text="{Binding Address.Number, Mode=OneWay}" Grid.Row="7" Grid.Column="1"/>
+        <Label FontSize="15" Grid.Row="7" FontWeight="Bold" Content="Address"/>
 
-        <Label FontSize="15" Grid.Row="8">Street</Label>
-        <TextBox Name="tenantStreet" Text="{Binding Address.Street, Mode=OneWay}" Grid.Row="8" Grid.Column="1"/>
+        <Label FontSize="15" Grid.Row="8">Number</Label>
+        <TextBox Name="tenantAddressNumber" Text="{Binding Address.Number, Mode=OneWay}" Grid.Row="8" Grid.Column="1"/>
 
-        <Label FontSize="15" Grid.Row="9">PostCode</Label>
-        <TextBox Name="tenantPostCode" Text="{Binding Address.PostCode, Mode=OneWay}" Grid.Row="9" Grid.Column="1"/>
+        <Label FontSize="15" Grid.Row="9">Street</Label>
+        <TextBox Name="tenantStreet" Text="{Binding Address.Street, Mode=OneWay}" Grid.Row="9" Grid.Column="1"/>
 
-        <Label FontSize="15" Grid.Row="10">City</Label>
-        <TextBox Name="tenantCity" Text="{Binding Address.City, Mode=OneWay}" Grid.Row="10" Grid.Column="1"/>
+        <Label FontSize="15" Grid.Row="10">PostCode</Label>
+        <TextBox Name="tenantPostCode" Text="{Binding Address.PostCode, Mode=OneWay}" Grid.Row="10" Grid.Column="1"/>
 
-        <Label FontSize="15" Grid.Row="11">Country</Label>
-        <TextBox Name="tenantCountry" Text="{Binding Address.Country, Mode=OneWay}" Grid.Row="11" Grid.Column="1"/>
+        <Label FontSize="15" Grid.Row="11">City</Label>
+        <TextBox Name="tenantCity" Text="{Binding Address.City, Mode=OneWay}" Grid.Row="11" Grid.Column="1"/>
+
+        <Label FontSize="15" Grid.Row="12">Country</Label>
+        <TextBox Name="tenantCountry" Text="{Binding Address.Country, Mode=OneWay}" Grid.Row="12" Grid.Column="1"/>
 
         <Button Content="Delete" Name="DeleteButton" Background="DarkRed" Foreground="WhiteSmoke" Click="DeleteButton_Click"  Grid.Row="20" Grid.Column="0" MinWidth="60" Margin="10"/>
         <Button Content="Cancel" Name="CancelButton" Click="CancelButton_Click"  Grid.Row="20" Grid.Column="2" MinWidth="60" Margin="10"/>

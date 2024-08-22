@@ -49,20 +49,31 @@ namespace WPF.View
             _contractViewModel = contractViewModel;
             _addressViewModel = addressViewModel;
 
+            PopulateComboBoxOwner();
+            PopulateComboBoxContract();
+
+            ComboBoxOwner.SelectedItem = _currentOwner;
+            DataContext = _currentOffice;
+        }
+
+        private void PopulateComboBoxOwner()
+        {
+            List<Owner> owners = _ownerViewModel.Owners.OrderBy(o => o.Label).ToList();
+
             // Populate owner ComboBox with owners from OwnerViewModel and select current owner
-            foreach (Owner o in _ownerViewModel.Owners)
+            foreach (Owner o in owners)
             {
                 ComboBoxOwner.Items.Add(o);
-                
+
                 if (_currentOffice.Owner != null && _currentOffice.Owner.OwnerId == o.OwnerId)
                 {
                     _currentOwner = o;
                 }
             }
+        }
 
-            // Clear and repopulate the contracts associated with the current office
-            _currentOffice.Contracts.Clear();
-
+        private void PopulateComboBoxContract()
+        {
             foreach (Contract contract in _contractViewModel.Contracts)
             {
                 if (contract.OfficeId == _currentOffice.OfficeId)
@@ -70,9 +81,6 @@ namespace WPF.View
                     _currentOffice.Contracts.Add(contract);
                 }
             }
-
-            ComboBoxOwner.SelectedItem = _currentOwner;
-            DataContext = _currentOffice;
         }
 
         /// <summary>
@@ -81,6 +89,11 @@ namespace WPF.View
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             _currentOffice.Active = false;
+            
+            _currentOffice.Owner = null!;
+            _currentOffice.Address = null!;
+            _currentOffice.Contracts.Clear();
+            
             _officeViewModel.UpdateOffice(_currentOffice);
             Close();
         }

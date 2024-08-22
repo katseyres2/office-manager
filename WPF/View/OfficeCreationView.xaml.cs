@@ -41,8 +41,15 @@ namespace WPF.View
             _officeViewModel = officeViewModel;
             _ownerViewModel = ownerViewModel;
 
+            PopulateComboBoxOwner();
+        }
+
+        private void PopulateComboBoxOwner()
+        {
+            List<Owner> owners = _ownerViewModel.Owners.OrderBy(o => o.Label).ToList();
+
             // Populate owner ComboBox with owners from OwnerViewModel
-            foreach (Owner o in _ownerViewModel.Owners)
+            foreach (Owner o in owners)
             {
                 ComboBoxOwner.Items.Add(o);
             }

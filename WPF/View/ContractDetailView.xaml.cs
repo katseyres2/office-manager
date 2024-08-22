@@ -24,12 +24,12 @@ namespace WPF.View
     /// </summary>
     public partial class ContractDetailView : Window
     {
-        private readonly Contract currentContract;
-        private readonly ContractViewModel contractViewModel;
-        private readonly OfficeViewModel officeViewModel;
-        private readonly TenantViewModel tenantViewModel;
-        private Tenant? currentTenant;
-        private Office? currentOffice;
+        private readonly Contract _currentContract;
+        private readonly ContractViewModel _contractViewModel;
+        private readonly OfficeViewModel _officeViewModel;
+        private readonly TenantViewModel _tenantViewModel;
+        private Tenant? _currentTenant;
+        private Office? _currentOffice;
 
         /// <summary>
         /// Initializes a new instance of the ContractDetailView class.
@@ -41,18 +41,19 @@ namespace WPF.View
         public ContractDetailView(Contract contract, OfficeViewModel officeViewModel, TenantViewModel tenantViewModel, ContractViewModel contractViewModel)
         {
             InitializeComponent();
-            currentContract = contract;
+            
+            _currentContract = contract;
 
-            this.officeViewModel = officeViewModel;
-            this.tenantViewModel = tenantViewModel;
-            this.contractViewModel = contractViewModel;
+            _officeViewModel = officeViewModel;
+            _tenantViewModel = tenantViewModel;
+            _contractViewModel = contractViewModel;
 
             PopulateComboBoxTenant();
             PopulateComboBoxOffice();
 
-            ComboBoxTenant.SelectedItem = currentTenant;
-            ComboBoxOffice.SelectedItem = currentOffice;
-            DataContext = currentContract;
+            ComboBoxTenant.SelectedItem = _currentTenant;
+            ComboBoxOffice.SelectedItem = _currentOffice;
+            DataContext = _currentContract;
 
             RefreshOfficeInformation();
             RefreshTenantInformation();
@@ -60,14 +61,16 @@ namespace WPF.View
 
         private void PopulateComboBoxTenant()
         {
+            List<Tenant> tenants = _tenantViewModel.Tenants.OrderBy(t => t.FirstName).ToList();
+
             // Populate tenant ComboBox and select current tenant
-            foreach (Tenant tenant in tenantViewModel.Tenants)
+            foreach (Tenant tenant in tenants)
             {
                 ComboBoxTenant.Items.Add(tenant);
 
-                if (currentContract.Tenant != null && currentContract.Tenant.TenantId == tenant.TenantId)
+                if (_currentContract.Tenant != null && _currentContract.Tenant.TenantId == tenant.TenantId)
                 {
-                    currentTenant = tenant;
+                    _currentTenant = tenant;
                 }
             }
         }
@@ -75,49 +78,49 @@ namespace WPF.View
         private void PopulateComboBoxOffice()
         {
             // Populate office ComboBox and select current office
-            foreach (Office office in officeViewModel.Offices)
+            foreach (Office office in _officeViewModel.Offices)
             {
                 ComboBoxOffice.Items.Add(office);
 
-                if (currentContract.Office != null && currentContract.Office.OfficeId == office.OfficeId)
+                if (_currentContract.Office != null && _currentContract.Office.OfficeId == office.OfficeId)
                 {
-                    currentOffice = office;
+                    _currentOffice = office;
                 }
             }
         }
 
         private void RefreshOfficeInformation()
         {
-            if (currentOffice == null) return;
+            if (_currentOffice == null) return;
 
-            OfficeOwnerLabel.Content = currentOffice.Owner.Label;
-            OfficeOwnerVAT.Content = currentOffice.Owner.Tva;
+            OfficeOwnerLabel.Content = _currentOffice.Owner.Label;
+            OfficeOwnerVAT.Content = _currentOffice.Owner.Tva;
             
-            OfficeAddressNumber.Content = currentOffice.Address.Number;
-            OfficeAddressStreet.Content = currentOffice.Address.Street;
-            OfficeAddressPostCode.Content = currentOffice.Address.PostCode;
-            OfficeAddressCity.Content = currentOffice.Address.City;
-            OfficeAddressCountry.Content = currentOffice.Address.Country;
+            OfficeAddressNumber.Content = _currentOffice.Address.Number;
+            OfficeAddressStreet.Content = _currentOffice.Address.Street;
+            OfficeAddressPostCode.Content = _currentOffice.Address.PostCode;
+            OfficeAddressCity.Content = _currentOffice.Address.City;
+            OfficeAddressCountry.Content = _currentOffice.Address.Country;
 
-            OfficeRent.Content = $"{currentOffice.Rent} €";
-            OfficeSurface.Content = $"{currentOffice.Surface} m²";
-            OfficeType.Content = currentOffice.Type;
+            OfficeRent.Content = $"{_currentOffice.Rent} €";
+            OfficeSurface.Content = $"{_currentOffice.Surface} m²";
+            OfficeType.Content = _currentOffice.Type;
         }
 
         private void RefreshTenantInformation()
         {
-            if (currentTenant == null) return;
+            if (_currentTenant == null) return;
 
-            TenantFirstName.Content = currentTenant.FirstName;
-            TenantLastName.Content = currentTenant.LastName;
-            TenantEmail.Content = currentTenant.Email;
-            TenantPhone.Content = currentTenant.Phone;
+            TenantFirstName.Content = _currentTenant.FirstName;
+            TenantLastName.Content = _currentTenant.LastName;
+            TenantEmail.Content = _currentTenant.Email;
+            TenantPhone.Content = _currentTenant.Phone;
 
-            TenantAddressNumber.Content = currentTenant.Address.Number;
-            TenantAddressStreet.Content= currentTenant.Address.Street;
-            TenantAddressPostCode.Content= currentTenant.Address.PostCode;
-            TenantAddressCity.Content= currentTenant.Address.City;
-            TenantAddressCountry.Content= currentTenant.Address.Country;
+            TenantAddressNumber.Content = _currentTenant.Address.Number;
+            TenantAddressStreet.Content= _currentTenant.Address.Street;
+            TenantAddressPostCode.Content= _currentTenant.Address.PostCode;
+            TenantAddressCity.Content= _currentTenant.Address.City;
+            TenantAddressCountry.Content= _currentTenant.Address.Country;
         }
 
         /// <summary>
@@ -127,7 +130,7 @@ namespace WPF.View
         {
             ComboBox combo = (ComboBox)sender;
             Tenant selectedTenant = (Tenant)combo.SelectedItem;
-            currentTenant = selectedTenant;
+            _currentTenant = selectedTenant;
 
             RefreshTenantInformation();
         }
@@ -139,7 +142,7 @@ namespace WPF.View
         {
             ComboBox combo = (ComboBox)sender;
             Office selectedOffice = (Office)combo.SelectedItem;
-            currentOffice = selectedOffice;
+            _currentOffice = selectedOffice;
             
             RefreshOfficeInformation();
         }
@@ -165,7 +168,7 @@ namespace WPF.View
         /// </summary>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentTenant == null || currentOffice == null)
+            if (_currentTenant == null || _currentOffice == null)
             {
                 MessageBox.Show("Tenant and office must be not null.");
                 return;
@@ -181,20 +184,20 @@ namespace WPF.View
             }
 
             // Clear current associations to prevent errors
-            currentContract.StartDate = startDate;
-            currentContract.EndDate = endDate;
+            _currentContract.StartDate = startDate;
+            _currentContract.EndDate = endDate;
 
             // Assign selected office and tenant
-            currentContract.Office = null!;
-            currentContract.Tenant = null!;
+            _currentContract.Office = null!;
+            _currentContract.Tenant = null!;
 
-            currentContract.OfficeId = currentOffice.OfficeId;
-            currentContract.TenantId = currentTenant.TenantId;
+            _currentContract.OfficeId = _currentOffice.OfficeId;
+            _currentContract.TenantId = _currentTenant.TenantId;
             
             try
             {
                 // Update the contract in the view model
-                contractViewModel.UpdateContract(currentContract);
+                _contractViewModel.UpdateContract(_currentContract);
                 Close();
             } catch (ReservationOverrideException ex) { MessageBox.Show(ex.Message);}
         }
