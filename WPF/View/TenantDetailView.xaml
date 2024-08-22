@@ -25,6 +25,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -36,13 +37,13 @@
         <TextBox Name="tenantLastName" Text="{Binding LastName, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
 
         <Label FontSize="15" Grid.Row="2">Active</Label>
-        <CheckBox Name="tenantActive" IsChecked="{Binding Active, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
+        <CheckBox VerticalAlignment="Center" Name="tenantActive" IsChecked="{Binding Active, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
 
-        <Label FontSize="15" Grid.Row="3">Created At</Label>
-        <TextBox Name="tenantCreatedAt" Text="{Binding CreatedAt, Mode=OneWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True"/>
+        <Label FontSize="15" Grid.Row="3" Visibility="Collapsed">Created At</Label>
+        <TextBox Name="tenantCreatedAt" Text="{Binding CreatedAt, Mode=OneWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" Visibility="Collapsed"/>
 
-        <Label FontSize="15" Grid.Row="4">Updated At</Label>
-        <TextBox Name="tenantUpdatedAt" Text="{Binding UpdatedAt, Mode=OneWay}" Grid.Row="4" Grid.Column="1" IsReadOnly="True"/>
+        <Label FontSize="15" Grid.Row="4" Visibility="Collapsed">Updated At</Label>
+        <TextBox Name="tenantUpdatedAt" Text="{Binding UpdatedAt, Mode=OneWay}" Grid.Row="4" Grid.Column="1" IsReadOnly="True" Visibility="Collapsed"/>
 
         <Label FontSize="15" Grid.Row="5">Phone</Label>
         <TextBox Name="tenantPhone" Text="{Binding Phone, Mode=OneWay}" Grid.Row="5" Grid.Column="1"/>

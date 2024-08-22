@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF.View"
         mc:Ignorable="d"
         Title="Owner Details" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
@@ -30,13 +30,13 @@
         <TextBox Name="ownerVAT" Text="{Binding Tva, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
         
         <Label FontSize="15" Grid.Row="2">Active</Label>
-        <CheckBox Name="ownerActive" IsChecked="{Binding Active, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
+        <CheckBox VerticalAlignment="Center" Name="ownerActive" IsChecked="{Binding Active, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
 
-        <Label FontSize="15" Grid.Row="3">Created At</Label>
-        <TextBox Name="ownerCreatedAt" Text="{Binding CreatedAt, Mode=OneWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True"/>
+        <Label FontSize="15" Grid.Row="3" Visibility="Collapsed">Created At</Label>
+        <TextBox Name="ownerCreatedAt" Text="{Binding CreatedAt, Mode=OneWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" Visibility="Collapsed"/>
 
-        <Label FontSize="15" Grid.Row="4">Updated At</Label>
-        <TextBox Name="ownerUpdatedAt" Text="{Binding UpdatedAt, Mode=OneWay}" Grid.Row="4" Grid.Column="1" IsReadOnly="True"/>
+        <Label FontSize="15" Grid.Row="4" Visibility="Collapsed">Updated At</Label>
+        <TextBox Name="ownerUpdatedAt" Text="{Binding UpdatedAt, Mode=OneWay}" Grid.Row="4" Grid.Column="1" IsReadOnly="True" Visibility="Collapsed"/>
 
         <Button Content="Delete" Name="DeleteButton" Background="DarkRed" Foreground="WhiteSmoke" Click="DeleteButton_Click" Grid.Row="6" Grid.Column="0" MinWidth="60" Margin="10"/>
         <Button Content="Cancel" Name="CancelButton" Click="CancelButton_Click" Grid.Row="6" Grid.Column="2" MinWidth="60" Margin="10"/>

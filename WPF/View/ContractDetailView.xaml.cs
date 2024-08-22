@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 using PGBD_Project.DB;
 
+using WPF.Exception;
 using WPF.ViewModel;
 
 namespace WPF.View
@@ -187,19 +188,15 @@ namespace WPF.View
             currentContract.Office = null!;
             currentContract.Tenant = null!;
 
-            if (currentOffice != null)
+            currentContract.OfficeId = currentOffice.OfficeId;
+            currentContract.TenantId = currentTenant.TenantId;
+            
+            try
             {
-                currentContract.OfficeId = currentOffice.OfficeId;
-            }
-
-            if (currentTenant != null)
-            {
-                currentContract.TenantId = currentTenant.TenantId;
-            }
-
-            // Update the contract in the view model
-            contractViewModel.UpdateContract(currentContract);
-            Close();
+                // Update the contract in the view model
+                contractViewModel.UpdateContract(currentContract);
+                Close();
+            } catch (ReservationOverrideException ex) { MessageBox.Show(ex.Message);}
         }
     }
 }

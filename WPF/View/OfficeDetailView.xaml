@@ -18,10 +18,8 @@
         <Grid Margin="10" Height="Auto" Grid.Row="0" Grid.Column="0">
             
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -35,9 +33,6 @@
 
             <Label FontSize="15" Grid.Row="0" Grid.Column="0">Surface</Label>
             <TextBox Name="officeSurface" Text="{Binding Surface, Mode=OneWay}" Grid.Row="0" Grid.Column="1"/>
-        
-            <Label FontSize="15" Grid.Row="0" Grid.Column="2" Visibility="Visible">Active</Label>
-            <CheckBox Name="officeActive" IsChecked="{Binding Active, Mode=OneWay}" Visibility="Visible" Grid.Row="0" Grid.Column="3"/>
 
             <Label FontSize="15" Grid.Row="1" Grid.Column="0">Description</Label>
             <TextBox Name="officeDescription" Grid.ColumnSpan="3" Text="{Binding Description, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
@@ -50,28 +45,47 @@
 
             <Label FontSize="15" Grid.Row="3">Rent</Label>
             <TextBox Name="officeRent" Text="{Binding Rent, Mode=OneWay}" Grid.Row="3" Grid.Column="1"/>
-            
 
             <Label FontSize="15" Grid.Row="3" Grid.Column="2" Visibility="Hidden">Type</Label>
             <TextBox Name="officeType" Text="{Binding Type, Mode=OneWay}" Grid.Row="3" Visibility="Hidden" Grid.Column="3"/>
 
-            <Label FontSize="15" Grid.Row="4">Address Number</Label>
-            <TextBox Name="officeAddressNumber" Text="{Binding Address.Number, Mode=OneWay}" Grid.Row="4" Grid.Column="1"/>
+            <Label FontSize="15" Grid.Row="4" Grid.Column="0">Owner</Label>
+            <ComboBox Name="ComboBoxOwner" DisplayMemberPath="Label" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" SelectionChanged="ComboBoxOwner_SelectionChanged"/>
 
-            <Label FontSize="15" Grid.Row="4" Grid.Column="2">Address Street</Label>
-            <TextBox Name="officeStreet" Text="{Binding Address.Street, Mode=OneWay}" Grid.Row="4" Grid.Column="3"/>
+            <Label FontSize="15" Grid.Row="5" Grid.Column="0" Visibility="Visible">Active</Label>
+            <CheckBox VerticalAlignment="Center" Name="officeActive" IsChecked="{Binding Active, Mode=OneWay}" Visibility="Visible" Grid.Row="5" Grid.Column="1"/>
 
-            <Label FontSize="15" Grid.Row="5">Address PostCode</Label>
-            <TextBox Name="officePostCode" Text="{Binding Address.PostCode, Mode=OneWay}" Grid.Row="5" Grid.Column="1"/>
+            <Grid Grid.ColumnSpan="4" Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <Label FontSize="15" Grid.Row="5" Grid.Column="2">Address City</Label>
-            <TextBox Name="officeCity" Text="{Binding Address.City, Mode=OneWay}" Grid.Row="5" Grid.Column="3"/>
+                <Label Content="Address" FontSize="15" FontWeight="Bold" Grid.Row="0"/>
 
-            <Label FontSize="15" Grid.Row="6">Address Country</Label>
-            <TextBox Name="officeCountry" Text="{Binding Address.Country, Mode=OneWay}" Grid.Row="6" Grid.Column="1"/>
+                <Label FontSize="15" Grid.Row="1">Number</Label>
+                <TextBox Name="officeAddressNumber" Text="{Binding Address.Number, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
 
-            <Label FontSize="15" Grid.Row="6" Grid.Column="2">Owner</Label>
-            <ComboBox Name="ComboBoxOwner" DisplayMemberPath="Label" Grid.Row="6" Grid.Column="3" SelectionChanged="ComboBoxOwner_SelectionChanged"/>
+                <Label FontSize="15" Grid.Row="1" Grid.Column="2">Street</Label>
+                <TextBox Name="officeStreet" Text="{Binding Address.Street, Mode=OneWay}" Grid.Row="1" Grid.Column="3"/>
+
+                <Label FontSize="15" Grid.Row="2">PostCode</Label>
+                <TextBox Name="officePostCode" Text="{Binding Address.PostCode, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
+
+                <Label FontSize="15" Grid.Row="2" Grid.Column="2">City</Label>
+                <TextBox Name="officeCity" Text="{Binding Address.City, Mode=OneWay}" Grid.Row="2" Grid.Column="3"/>
+
+                <Label FontSize="15" Grid.Row="3">Country</Label>
+                <TextBox Name="officeCountry" Text="{Binding Address.Country, Mode=OneWay}" Grid.Row="3" Grid.Column="1"/>
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="1" Margin="10" >

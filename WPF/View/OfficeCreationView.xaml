@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF.View"
         mc:Ignorable="d"
         Title="Office Creation" Height="450" Width="800">
-    <Grid Margin="20">
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
@@ -38,7 +38,7 @@
         <TextBox Name="officeDescription" Text="{Binding Description, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
 
         <Label FontSize="15" Grid.Row="2">Active</Label>
-        <CheckBox Name="officeActive" IsChecked="{Binding Active, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
+        <CheckBox VerticalAlignment="Center" Name="officeActive" IsChecked="{Binding Active, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
 
         <Label FontSize="15" Grid.Row="3" Visibility="Collapsed">Created At</Label>
         <TextBox Name="officeCreatedAt" Text="{Binding CreatedAt, Mode=OneWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" Visibility="Collapsed"/>
@@ -52,7 +52,7 @@
         <Label FontSize="15" Grid.Row="6">Type</Label>
         <TextBox Name="officeType" Text="{Binding Type, Mode=OneWay}" Grid.Row="6" Grid.Column="1"/>
 
-        <Label FontSize="15" Grid.Row="7">Address Number</Label>
+        <Label FontSize="15" Grid.Row="7">Number</Label>
         <TextBox Name="officeAddressNumber" Text="{Binding Address.Number, Mode=OneWay}" Grid.Row="7" Grid.Column="1"/>
 
         <Label FontSize="15" Grid.Row="8">Street</Label>

@@ -10,6 +10,7 @@ using System.Windows;
 using PGBD_Project.BU;
 using PGBD_Project.DB;
 
+using WPF.Exception;
 using WPF.View;
 
 namespace WPF.ViewModel
@@ -81,6 +82,11 @@ namespace WPF.ViewModel
         /// <param name="contract">The contract to be updated.</param>
         public void UpdateContract(Contract contract)
         {
+            if (DoesContractOverrideAnotherOneInSameOffice(contract))
+            {
+                throw new ReservationOverrideException();
+            }
+
             contract.UpdatedAt = DateTime.Now;
             RentService.UpdateContract(contract);
 
@@ -91,6 +97,20 @@ namespace WPF.ViewModel
             {
                 Contracts.Add(DBContract);
             }
+        }
+
+        private bool DoesContractOverrideAnotherOneInSameOffice(Contract contract)
+        {
+            List<Contract> existingOfficeContracts = _contracts.Where(c => c.OfficeId == contract.OfficeId).ToList();
+            List<Contract> overridenOfficeContracts = existingOfficeContracts.Where(c => contract.ContractId != c.ContractId && !((contract.StartDate < c.StartDate && contract.EndDate < c.StartDate) || (contract.StartDate > c.EndDate && contract.EndDate > c.EndDate))).ToList();
+            return overridenOfficeContracts.Count > 0;
+        }
+
+        private bool DoesContractOverrideAnotherOneInSameOffice(DateTime startDate, DateTime endDate, Office office)
+        {
+            List<Contract> existingOfficeContracts = _contracts.Where(c => c.OfficeId == office.OfficeId).ToList();
+            List<Contract> overridenOfficeContracts = existingOfficeContracts.Where(c => !((startDate < c.StartDate && endDate < c.StartDate) || (startDate > c.EndDate && endDate > c.EndDate))).ToList();
+            return overridenOfficeContracts.Count > 0;
         }
 
         /// <summary>
@@ -110,8 +130,13 @@ namespace WPF.ViewModel
         /// <param name="endDate">The end date of the contract.</param>
         /// <param name="office">The office associated with the contract.</param>
         /// <param name="tenant">The tenant associated with the contract.</param>
-        public void CreateContract(DateTime? startDate, DateTime? endDate, Office office, Tenant tenant)
+        public void CreateContract(DateTime startDate, DateTime endDate, Office office, Tenant tenant)
         {
+            if (DoesContractOverrideAnotherOneInSameOffice(startDate, endDate, office))
+            {
+                throw new ReservationOverrideException();
+            }
+
             RentService.AddContract(startDate, endDate, office, tenant);
             
             // Refresh the contract list
