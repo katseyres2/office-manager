@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using Microsoft.EntityFrameworkCore;
+
 using PGBD_Project.BU;
 using PGBD_Project.DB;
 
@@ -65,6 +67,12 @@ namespace WPF.View
                 return;
             }
 
+            if (officeAddressNumber.Text.Length == 0 || officeStreet.Text.Length == 0 || officePostCode.Text.Length == 0 || officeCity.Text.Length == 0 || officeCountry.Text.Length == 0)
+            {
+                MessageBox.Show("Please fill all address inputs.");
+                return;
+            }
+
             try
             {
                 _officeViewModel.CreateOffice(
@@ -84,6 +92,7 @@ namespace WPF.View
             catch (FormatException ex) { MessageBox.Show(ex.Message); }
             catch (ArgumentNullException ex) { MessageBox.Show(ex.Message); }
             catch (OverflowException ex) { MessageBox.Show(ex.Message); }
+            catch (DbUpdateException ex) { MessageBox.Show(ex.Message); }
             
         }
 

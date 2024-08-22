@@ -74,13 +74,28 @@
             <ComboBox Name="ComboBoxOwner" DisplayMemberPath="Label" Grid.Row="6" Grid.Column="3" SelectionChanged="ComboBoxOwner_SelectionChanged"/>
         </Grid>
 
-        <DataGrid IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Row="1" Margin="10" Name="dataGridContracts" AutoGenerateColumns="False" ItemsSource="{Binding Contracts}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Tenant" Binding="{Binding Tenant.FirstName}" IsReadOnly="True"/>
-                <DataGridTextColumn Width="*" Header="Start date" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True"/>
-                <DataGridTextColumn Width="*" Header="End date" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Grid.Row="1" Margin="10" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Reservations" FontSize="15" FontWeight="Bold" Grid.Row="0"/>
+
+            <DataGrid Grid.Row="1" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" Name="dataGridContracts" AutoGenerateColumns="False" ItemsSource="{Binding Contracts}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Tenant" Binding="{Binding Tenant.FirstName}" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="*" Header="Start date" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="*" Header="End date" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

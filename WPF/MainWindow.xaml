@@ -81,18 +81,26 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn     Width="Auto" Header="Id" Binding="{Binding OfficeId}" IsReadOnly="True" Visibility="Collapsed" SortDirection="Ascending"/>
                             <DataGridCheckBoxColumn Width="Auto" Header="Active" Binding="{Binding Active}" IsReadOnly="True" Visibility="Collapsed"/>
-                            <DataGridTextColumn     Width="Auto" Header="Reservations" Binding="{Binding Contracts.Count}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="# of Reservations" Binding="{Binding Contracts.Count}" IsReadOnly="True"/>
                             <DataGridTextColumn     Width="Auto" Header="Rent (daily)" Binding="{Binding Rent, StringFormat={}{0:#,#.00 €}}" IsReadOnly="True"/>
                             <DataGridTextColumn     Width="Auto" Header="Surface (m²)" Binding="{Binding Surface, StringFormat=N2}" IsReadOnly="True"/>
-                            <DataGridTextColumn     Width="Auto" Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
-                            <DataGridTextColumn     Width="Auto" Header="Owner" Binding="{Binding Owner.Label}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="Type" Binding="{Binding Type}" IsReadOnly="True" Visibility="Collapsed"/>
+                            <DataGridTextColumn     Width="Auto" Header="Owner" Binding="{Binding Owner.Label}" Visibility="Collapsed" IsReadOnly="True"/>
                             <DataGridTextColumn     Width="Auto" Header="CreatedAt" Binding="{Binding CreatedAt, StringFormat=\{0:dd\/MM\/yyyy HHmm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
                             <DataGridTextColumn     Width="Auto" Header="Last Update" Binding="{Binding UpdatedAt, StringFormat=\{0:dd\/MM\/yyyy HHmm:ss\}}" IsReadOnly="True" Visibility="Collapsed"/>
                             <DataGridTextColumn     Width="Auto" Header="Number" Binding="{Binding Address.Number}" IsReadOnly="True"/>
                             <DataGridTextColumn     Width="Auto" Header="Street" Binding="{Binding Address.Street}" IsReadOnly="True"/>
                             <DataGridTextColumn     Width="Auto" Header="PostCode" Binding="{Binding Address.PostCode}" IsReadOnly="True"/>
                             <DataGridTextColumn     Width="Auto" Header="City" Binding="{Binding Address.City}" IsReadOnly="True"/>
-                            <DataGridTextColumn     Width="*" Header="Country" Binding="{Binding Address.Country}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="Auto" Header="Country" Binding="{Binding Address.Country}" IsReadOnly="True"/>
+                            <DataGridTextColumn     Width="*"    Header="Description" Binding="{Binding Description}" IsReadOnly="True">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">

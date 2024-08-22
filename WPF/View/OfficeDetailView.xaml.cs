@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using Microsoft.EntityFrameworkCore;
+
 using PGBD_Project.BU;
 using PGBD_Project.DB;
 
@@ -102,6 +104,7 @@ namespace WPF.View
                 _currentOffice.Rent = Double.Parse(officeRent.Text);
                 _currentOffice.Active = officeActive.IsChecked ?? _currentOffice.Active;
                 _currentOffice.Type = Int32.Parse(officeType.Text);
+                _currentOffice.Description = officeDescription.Text;
 
                 // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
                 // This bug that throws a DebugException when updating database took me like 10 hours to resolve
@@ -109,6 +112,7 @@ namespace WPF.View
 
                 _currentOffice.Owner = null!; // Bullshit Bug Resolved Yeah!!! The virtual Owner was not null, I only have to set to null and update the Office.OwnerId!
                 _currentOffice.Address = null!;
+                _currentOffice.Contracts.Clear();
                 
                 if (_currentOwner != null)
                 {
@@ -130,13 +134,12 @@ namespace WPF.View
                 // Yes, this one above!!
                 // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
-
-
                 Close();
             }
             catch (FormatException ex) { MessageBox.Show(ex.Message); }
             catch (ArgumentNullException ex) { MessageBox.Show(ex.Message); }
             catch (OverflowException ex) { MessageBox.Show(ex.Message); }
+            catch (DbUpdateException ex) { MessageBox.Show(ex.Message); }
         }
 
         /// <summary>
