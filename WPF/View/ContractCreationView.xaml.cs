@@ -56,6 +56,40 @@ namespace WPF.View
             }
         }
 
+        private void RefreshOfficeInformation()
+        {
+            if (currentOffice == null) return;
+
+            OfficeOwnerLabel.Content = currentOffice.Owner.Label;
+            OfficeOwnerVAT.Content = currentOffice.Owner.Tva;
+
+            OfficeAddressNumber.Content = currentOffice.Address.Number;
+            OfficeAddressStreet.Content = currentOffice.Address.Street;
+            OfficeAddressPostCode.Content = currentOffice.Address.PostCode;
+            OfficeAddressCity.Content = currentOffice.Address.City;
+            OfficeAddressCountry.Content = currentOffice.Address.Country;
+
+            OfficeRent.Content = $"{currentOffice.Rent} €";
+            OfficeSurface.Content = $"{currentOffice.Surface} m²";
+            OfficeType.Content = currentOffice.Type;
+        }
+
+        private void RefreshTenantInformation()
+        {
+            if (currentTenant == null) return;
+
+            TenantFirstName.Content = currentTenant.FirstName;
+            TenantLastName.Content = currentTenant.LastName;
+            TenantEmail.Content = currentTenant.Email;
+            TenantPhone.Content = currentTenant.Phone;
+
+            TenantAddressNumber.Content = currentTenant.Address.Number;
+            TenantAddressStreet.Content = currentTenant.Address.Street;
+            TenantAddressPostCode.Content = currentTenant.Address.PostCode;
+            TenantAddressCity.Content = currentTenant.Address.City;
+            TenantAddressCountry.Content = currentTenant.Address.Country;
+        }
+
         /// <summary>
         /// Handles the click event of the Cancel button. Closes the window without saving.
         /// </summary>
@@ -113,6 +147,8 @@ namespace WPF.View
             ComboBox combo = (ComboBox)sender;
             Office selectedOffice = (Office)combo.SelectedItem;
             currentOffice = selectedOffice;
+            
+            RefreshOfficeInformation();
         }
 
         /// <summary>
@@ -123,6 +159,8 @@ namespace WPF.View
             ComboBox combo = (ComboBox)sender;
             Tenant selectedTenant = (Tenant)combo.SelectedItem;
             currentTenant= selectedTenant;
+
+            RefreshTenantInformation();
         }
     }
 }

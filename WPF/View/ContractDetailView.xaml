@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF.View"
         mc:Ignorable="d"
-        Title="Contract Detail" Height="450" Width="800">
+        Title="Contract Detail" Height="Auto" Width="800">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -28,7 +28,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -48,11 +50,142 @@
         <TextBox Name="officeUpdatedAt" Text="{Binding UpdatedAt, Mode=OneWay}" Grid.Row="4" Grid.Column="1" IsReadOnly="True"/>
 
         <Label FontSize="15" Grid.Row="12">Tenant</Label>
-        <ComboBox Name="ComboBoxTenant" DisplayMemberPath="FirstName" Grid.Row="12" Grid.Column="1" SelectionChanged="ComboBoxTenant_SelectionChanged"/>
+        <ComboBox Name="ComboBoxTenant" Grid.Row="12" Grid.Column="1" SelectionChanged="ComboBoxTenant_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="FirstName"/>
+                                <Binding Path="LastName"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
         <Label FontSize="15" Grid.Row="13">Office</Label>
-        <ComboBox Name="ComboBoxOffice" DisplayMemberPath="OfficeId" Grid.Row="13" Grid.Column="1" SelectionChanged="ComboBoxOffice_SelectionChanged"/>
+        <ComboBox Name="ComboBoxOffice" Grid.Row="13" Grid.Column="1" SelectionChanged="ComboBoxOffice_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}, {2} {3}, {4} ({5} m² - {6} €)">
+                                <Binding Path="Address.Number"/>
+                                <Binding Path="Address.Street"/>
+                                <Binding Path="Address.PostCode"/>
+                                <Binding Path="Address.City"/>
+                                <Binding Path="Address.Country"/>
+                                <Binding Path="Surface"/>
+                                <Binding Path="Rent"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
+        
+        <Border Grid.ColumnSpan="4" Grid.Row="14" Margin="10" BorderBrush="Black" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" FontSize="15" FontWeight="Bold" Content="Tenant Information"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Firstname"/>
+                <Label Grid.Row="1" Grid.Column="1" Content="" Name="TenantFirstName"/>
+
+                <Label Grid.Row="1" Grid.Column="2" Content="Lastname"/>
+                <Label Grid.Row="1" Grid.Column="3" Content="" Name="TenantLastName"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Phone"/>
+                <Label Grid.Row="2" Grid.Column="1" Content="" Name="TenantPhone"/>
+
+                <Label Grid.Row="2" Grid.Column="2" Content="Email"/>
+                <Label Grid.Row="2" Grid.Column="3" Content="" Name="TenantEmail"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Number"/>
+                <Label Grid.Row="3" Grid.Column="1" Content="" Name="TenantAddressNumber"/>
+
+                <Label Grid.Row="3" Grid.Column="2" Content="Street"/>
+                <Label Grid.Row="3" Grid.Column="3" Content="" Name="TenantAddressStreet"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="PostCode"/>
+                <Label Grid.Row="4" Grid.Column="1" Content="" Name="TenantAddressPostCode"/>
+
+                <Label Grid.Row="4" Grid.Column="2" Content="City"/>
+                <Label Grid.Row="4" Grid.Column="3" Content="" Name="TenantAddressCity"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Country"/>
+                <Label Grid.Row="5" Grid.Column="1" Content="" Name="TenantAddressCountry"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="15" Grid.ColumnSpan="4" Margin="10" BorderBrush="Black" BorderThickness="1">
+            <Grid Grid.Row="14" Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" FontSize="15" FontWeight="Bold" Content="Office Information"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Office Owner"/>
+                <Label Grid.Row="1" Grid.Column="1" Content="" Name="OfficeOwnerLabel"/>
+
+                <Label Grid.Row="1" Grid.Column="2" Content="VAT"/>
+                <Label Grid.Row="1" Grid.Column="3" Content="" Name="OfficeOwnerVAT"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Number"/>
+                <Label Grid.Row="2" Grid.Column="1" Content="" Name="OfficeAddressNumber"/>
+
+                <Label Grid.Row="2" Grid.Column="2" Content="Street"/>
+                <Label Grid.Row="2" Grid.Column="3" Content="" Name="OfficeAddressStreet"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="PostCode"/>
+                <Label Grid.Row="3" Grid.Column="1" Content="" Name="OfficeAddressPostCode"/>
+
+                <Label Grid.Row="3" Grid.Column="2" Content="City"/>
+                <Label Grid.Row="3" Grid.Column="3" Content="" Name="OfficeAddressCity"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="Country"/>
+                <Label Grid.Row="4" Grid.Column="1" Content="" Name="OfficeAddressCountry"/>
+
+                <Label Grid.Row="4" Grid.Column="2" Content="Rent"/>
+                <Label Grid.Row="4" Grid.Column="3" Content="" Name="OfficeRent"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Surface"/>
+                <Label Grid.Row="5" Grid.Column="1" Content="" Name="OfficeSurface"/>
+
+                <Label Grid.Row="5" Grid.Column="2" Content="Type"/>
+                <Label Grid.Row="5" Grid.Column="3" Content="" Name="OfficeType"/>
+            </Grid>
+        </Border>
+        
         <Button Content="Delete" Name="DeleteButton" Background="DarkRed" Foreground="WhiteSmoke" Click="DeleteButton_Click"  Grid.Row="20" Grid.Column="0" MinWidth="60" Margin="10"/>
         <Button Content="Cancel" Name="CancelButton" Click="CancelButton_Click"  Grid.Row="20" Grid.Column="2" MinWidth="60" Margin="10"/>
         <Button Content="Save" Name="SaveButton" Click="SaveButton_Click"  Grid.Row="20" Grid.Column="3" MinWidth="60" Margin="10"/>
