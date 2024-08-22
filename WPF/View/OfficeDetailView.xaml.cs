@@ -50,7 +50,7 @@ namespace WPF.View
             _addressViewModel = addressViewModel;
 
             PopulateComboBoxOwner();
-            PopulateComboBoxContract();
+            PopulateOfficeContract();
 
             ComboBoxOwner.SelectedItem = _currentOwner;
             DataContext = _currentOffice;
@@ -72,8 +72,10 @@ namespace WPF.View
             }
         }
 
-        private void PopulateComboBoxContract()
+        private void PopulateOfficeContract()
         {
+            _currentOffice.Contracts.Clear();
+
             foreach (Contract contract in _contractViewModel.Contracts)
             {
                 if (contract.OfficeId == _currentOffice.OfficeId)
