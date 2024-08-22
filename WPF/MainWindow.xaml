@@ -5,8 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:WPF"
     mc:Ignorable="d"
-    Title="Flexi Workspace" Height="600" Width="1000"
-    WindowStartupLocation="CenterScreen">
+    Title="Flexi Workspace" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -161,6 +160,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button HorizontalAlignment="Right" Visibility="Visible" Grid.Row="1" Width="170" Grid.Column="1" Margin="5" Height="Auto" Name="SwitchDeletedItemDisplay" Click="SwitchDeletedItemDisplay_Click"/>
+        <Button HorizontalAlignment="Right" Visibility="Visible" Grid.Row="1" Width="170" Grid.Column="1" Content="PlaceHolder" Margin="5" Height="Auto" Name="SwitchDeletedItemDisplay" Click="SwitchDeletedItemDisplay_Click"/>
     </Grid>
 </Window>

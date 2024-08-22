@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF.View"
         mc:Ignorable="d"
         Title="Tenant Details" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF.View"
         mc:Ignorable="d"
         Title="Office Details" Height="600" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Margin="10" Height="Auto" Grid.Row="0" Grid.Column="0">
+        <Grid Height="Auto" Grid.Row="0" Grid.Column="0">
             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -88,7 +88,7 @@
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="1" Margin="10" >
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -108,8 +108,6 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-
-        
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
